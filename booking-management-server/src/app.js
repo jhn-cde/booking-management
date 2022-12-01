@@ -6,9 +6,8 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv').config()
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const customersRouter = require('./routes/customers');
+const indexRouter = require('./v1/routes/index');
+const customersRouter = require('./v1/routes/customerRoutes');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.ATLAS_URI)
@@ -28,7 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/customers', customersRouter);
 
 // catch 404 and forward to error handler
