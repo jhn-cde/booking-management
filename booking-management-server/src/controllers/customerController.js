@@ -8,14 +8,5 @@ class CustomerController extends Controller{
     super(service)
   }
 }
-const getAll = async (req, res, next) => {
-  try {
-    const response = await customerService.getAll(req.query);
-    return res.send({ status: "OK", data: response });
-  }
-  catch (e) {
-    next(e);
-  }
-}
 
 module.exports =  new CustomerController(customerService)

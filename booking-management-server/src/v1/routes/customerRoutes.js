@@ -3,7 +3,7 @@ var router = express.Router();
 const CustomerController = require("../../controllers/customerController");
 
 router
-  .get('/', CustomerController.getAll)
+  .get('/', (req, res, next) => CustomerController.getAll(req, res, next))
 
 /* GET ALL CUSTOMERS 
 router.get('/', function(req, res, next) {
