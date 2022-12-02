@@ -7,8 +7,9 @@ const schema = new mongoose.Schema({
   min: 0,
   get: v => Math.round(v*100)/100,
   set: v => Math.round(v*100)/100,
+  default: 0
 },
- ndays: {type: Number, min: 0},
+ ndays: {type: Number, min: 0, default: 1},
  userId: {type: String, required: true}
 });
 
