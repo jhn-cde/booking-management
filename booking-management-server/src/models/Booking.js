@@ -11,7 +11,7 @@ const schema = new Schema({
   },
   outstanding: {type: Number, min: 0},
   state: {
-    Type: String,
+    type: String,
     enum: ['Pending', 'In Progress', 'Completed', 'Cancelled'],
     required: true,
   },
