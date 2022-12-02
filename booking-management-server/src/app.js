@@ -7,7 +7,10 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 
 const indexRouter = require('./v1/routes/index');
+const bookingsRouter = require('./v1/routes/bookingRoutes');
 const customersRouter = require('./v1/routes/customerRoutes');
+const toursRouter = require('./v1/routes/tourRoutes');
+const usersRouter = require('./v1/routes/userRoutes');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.ATLAS_URI)
@@ -26,8 +29,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/customers', customersRouter);
+app.use('/api/', indexRouter);
+app.use('/api/bookings', bookingsRouter);
+app.use('/api/customers', customersRouter);
+app.use('/api/tours', toursRouter);
+app.use('/api/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
