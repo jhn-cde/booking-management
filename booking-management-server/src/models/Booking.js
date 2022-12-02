@@ -10,7 +10,11 @@ const schema = new Schema({
     set: v => Math.round(v*100)/100,
   },
   outstanding: {type: Number, min: 0},
-  state: {Type: String, required: true},
+  state: {
+    Type: String,
+    enum: ['Pending', 'In Progress', 'Completed', 'Cancelled'],
+    required: true,
+  },
   startdate: Date,
   foodType: [String],
   npassengers: {type: Number, min: 0},
