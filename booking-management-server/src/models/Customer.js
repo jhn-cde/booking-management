@@ -6,7 +6,7 @@ const schema = new mongoose.Schema({
  email: String,
  phone: String,
  nationality: String,
- birthDate: Date,
+ birthdate: Date,
  userId: String
 });
 

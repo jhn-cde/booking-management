@@ -5,7 +5,9 @@ const schema = new mongoose.Schema({
   price: Number,
   outstanding: Number,
   state: String,
+  startdate: Date,
   foodType: [],
+  npassengers: Number,
   passengers: [],
   tours:[],
   userId: String
