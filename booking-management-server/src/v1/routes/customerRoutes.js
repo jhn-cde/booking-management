@@ -1,49 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const CustomerController = require("../../controllers/customerController");
 
 router
   .get('/', (req, res, next) => CustomerController.getAll(req, res, next))
-
-/* GET ALL CUSTOMERS 
-router.get('/', function(req, res, next) {
-  Customer.find(function (err, customers) {
-    if (err) return next(err);
-    res.json(customers);
-  });
-});
-
-/* GET SINGLE CUSTOMER BY ID 
-router.get('/:id', function(req, res, next) {
-  Customer.findById(req.params.id, function (err, customer) {
-    if (err) return next(err);
-    res.json(customer);
-  });
-});
-
-/* SAVE CUSTOMER 
-router.post('/', function(req, res, next) {
-  Customer.create(req.body, function (err, customer) {
-    if (err) return next(err);
-    res.json(customer);
-  });
-});
-
-/* UPDATE CUSTOMER 
-router.put('/:id', function(req, res, next) {
-  Customer.findByIdAndUpdate(req.params.id, req.body, function (err, customer) {
-    if (err) return next(err);
-    res.json(customer);
-  });
-});
-
-/* DELETE CUSTOMER 
-router.delete('/:id', function(req, res, next) {
-  Customer.findByIdAndRemove(req.params.id, req.body, function (err, customer) {
-    if (err) return next(err);
-    res.json(customer);
-  });
-});
-*/
+  .get('/:id', (req, res, next) => CustomerController.get(req, res, next))
+  .post('/', (req, res, next) => CustomerController.insert(req, res, next))
+  .post('/:id', (req, res, next) => CustomerController.update(req, res, next))
+  .delete('/:id', (req, res, next) => CustomerController.delete(req, res, next))
 
 module.exports = router;
