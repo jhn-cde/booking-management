@@ -18,7 +18,7 @@ class Controller {
     if(!id){
     res.status(400).send({
       status: "FAILED",
-      data: { error: "Parameter ':workoutId' can not be empty" },
+      data: { error: "Parameter ':id' can not be empty" },
     });
     return;
     }
