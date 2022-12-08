@@ -2,9 +2,14 @@ import { StyleSheet, Text, View } from "react-native"
 import { format } from 'date-fns'
 import { styles } from "../../../theme/theme"
 
+interface Tour{
+  name: String,
+  _id: String
+}
+
 interface Props {
   date: Date,
-  tours: String[]
+  tours: Tour[]
 }
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -16,7 +21,7 @@ const ItemInfo = ({date, tours}: Props) => {
         {`${format(new Date(date), 'EEEE d')}`} - {
           tours.map((tour, index) => 
             <Text key={index}>
-              {index!==0&&', '}{tour}
+              {index!==0&&', '}{tour.name}
             </Text>
           )
         }

@@ -1,58 +1,25 @@
-import { useState } from "react"
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { View } from "react-native"
 import StatusMenu from "../StatusMenu"
 import BookingDateList from "./BookingDateList"
 
-const bookings = [
-  {
-    date: new Date(),
-    bookings: [
-      {
-        date: new Date(Date.now()),
-        tours: ['Manu 4', 'Machupicchu'],
-        customerName: 'Johan',
-        nTravelers: 2,
-        state: 'Pending'
-      },
-      {
-        date: new Date(Date.now()),
-        tours: ['Manu 7'],
-        customerName: 'Wilfredo',
-        nTravelers: 4,
-        state: 'Pending'
-      },
-    ]
-  },
-  {
-    date: new Date('2023/02/01'),
-    bookings: [
-      {
-        date: new Date(Date.now()),
-        tours: ['Manu 4', 'Machupicchu'],
-        customerName: 'Johan',
-        nTravelers: 2,
-        state: 'Cancelled'
-      },
-      {
-        date: new Date(Date.now()),
-        tours: ['Manu 7'],
-        customerName: 'Wilfredo',
-        nTravelers: 4,
-        state: 'Pending'
-      },
-      {
-        date: new Date(Date.now()),
-        tours: ['Manu 4', 'Manu 7', 'Machupicchu'],
-        customerName: 'Yllasiray',
-        nTravelers: 2,
-        state: 'Pending'
-      },
-    ]
-  }
-]
+interface data{
+  _id: {year: number, month: number},
+  bookings: []
+}
 
 const BookingList = () => {
   const [state, setState] = useState('Pending')
+  const [bookings, setBookings] = useState<data[]>([])
+
+  useEffect(() => {
+    axios.get<data[]>('http://localhost:3000/api/bookings/groupdate').then(response => {
+      if(response.status === 200){
+        setBookings(response.data)
+      }
+    })
+  }, [])
 
   return (
     <View>
@@ -60,10 +27,10 @@ const BookingList = () => {
         <StatusMenu state={state} setState={setState}/>
       </View>
       <View>
-        {bookings.map(list => 
+        {bookings.map((list, index) => 
           <BookingDateList 
-            key={list.date.toDateString()} 
-            date={list.date} 
+            key={index} 
+            date={list._id} 
             bookings={list.bookings}
             state={state}
           />

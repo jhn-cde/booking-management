@@ -4,22 +4,22 @@ import { colors, styles } from "../../../theme/theme"
 import ItemInfo from "./ItemInfo"
 
 interface Props {
-  date: Date,
-  tours: String[],
-  customerName: String,
-  nTravelers: Number
+  startdate: Date,
+  tours: [],
+  contact: {name: String},
+  ntravelers: Number
 }
 
-const Item = ({date, tours, customerName, nTravelers}: Props) => {
+const Item = ({startdate, tours, contact, ntravelers}: Props) => {
   return (
     <View style={{alignItems: 'center', marginBottom: 10}}>
       <View style={customStyles.container}>
         <View style={{marginLeft: 5, width: '85%'}}>
           <Text style={{...customStyles.title, marginBottom: 3}}>
-            {customerName} - {String(nTravelers)}p
+            {contact.name} - {String(ntravelers)}p
           </Text>
           <ItemInfo
-            date={date}
+            date={startdate}
             tours={tours} 
           />
         </View>

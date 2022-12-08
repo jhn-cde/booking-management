@@ -3,15 +3,15 @@ import { styles } from "../../../theme/theme"
 import Item from "./Item"
 
 interface Booking {
-  date: Date,
-  tours: String[],
-  customerName: String,
-  nTravelers: Number,
+  startdate: Date,
+  tours: [],
+  contact: {name: String},
+  ntravelers: Number,
   state: String
 }
 
 interface Props {
-  date: Date,
+  date: {month: number, year: number},
   bookings: Booking[],
   state: String | undefined
 }
@@ -23,7 +23,7 @@ const BookingDateList = ({date, bookings, state}: Props) => {
     <View style={{marginBottom: 15}}>
       <View style={{marginBottom: 10}}>
         <Text style={styles.subtitle}>
-          {months[date.getMonth()]}, {date.getFullYear()}
+        {months[date.month-1]}, {String(date.year)}
         </Text>
       </View>
       <View>
