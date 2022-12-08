@@ -22,7 +22,7 @@ const schema = new Schema({
   foodType: {type: String, default: ''},
   ntravelers: {type: Number, min: 0, default: 1},
   travelers: [{ type: Schema.Types.ObjectId, ref: 'Customer' }],
-  tours: [{ type: Schema.Types.ObjectId, ref: 'Tour' }],
+  tours: [],
   userId: {type: Schema.Types.ObjectId, ref: 'User', required: true}
 });
 

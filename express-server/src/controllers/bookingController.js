@@ -13,7 +13,7 @@ class BookingController extends Controller{
     try {
       const response = await this.service.getAllGroupByDate( req.query );
 
-      return res.send({ status: "OK", data: response });
+      return res.send(response);
     } catch (e) {
       next(e);
     }
