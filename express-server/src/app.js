@@ -6,6 +6,9 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv').config()
 
+const cors = require('cors')
+const whiteList = ['https://jhn-cde.github.io', 'http://localhost:19000', 'http://localhost:19006']
+
 const indexRouter = require('./v1/routes/index');
 const bookingsRouter = require('./v1/routes/bookingRoutes');
 const customersRouter = require('./v1/routes/customerRoutes');
@@ -18,6 +21,7 @@ mongoose.connect(process.env.ATLAS_URI)
    .catch((err) => console.error(err));
 
 var app = express();
+app.use(cors({origin: whiteList}))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
