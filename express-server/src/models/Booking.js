@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const schema = new Schema({
-  contactId: { type: Schema.Types.ObjectId, ref: 'Customer', required: true},
+  contact: {
+    name: {type: String, required: true},
+    _id: { type: Schema.Types.ObjectId, ref: 'Customer', required: true}},
   price: {
     type: Number, 
     min: 0,
@@ -21,7 +23,7 @@ const schema = new Schema({
   ntravelers: {type: Number, min: 0, default: 1},
   travelers: [{ type: Schema.Types.ObjectId, ref: 'Customer' }],
   tours: [{ type: Schema.Types.ObjectId, ref: 'Tour' }],
-  userId: {type: String, required: true}
+  userId: {type: Schema.Types.ObjectId, ref: 'User', required: true}
 });
 
 const booking = mongoose.model('Booking', schema);

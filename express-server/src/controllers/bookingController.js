@@ -8,6 +8,16 @@ class BookingController extends Controller{
   constructor(service){
     super(service)
   }
+
+  async getAllGroupByDate( req, res, next ) {
+    try {
+      const response = await this.service.getAllGroupByDate( req.query );
+
+      return res.send({ status: "OK", data: response });
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports =  new BookingController(bookingService)
