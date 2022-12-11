@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import BookingList from './src/features/BookingList/page/BookingList';
+import BookingList from './src/features/bookingList/page/BookingList';
 
 export default function App() {
   return (
