@@ -1,14 +1,7 @@
 import { Text, View } from "react-native"
 import { styles } from "../../../theme/theme"
+import { Booking } from "../../../ts/interfaces/booking.interface";
 import Item from "./Item"
-
-interface Booking {
-  startdate: Date,
-  tours: [],
-  contact: {name: String},
-  ntravelers: Number,
-  state: String
-}
 
 interface Props {
   date: {month: number, year: number},

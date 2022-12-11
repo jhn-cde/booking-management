@@ -1,11 +1,7 @@
 import { StyleSheet, Text, View } from "react-native"
 import { format } from 'date-fns'
 import { styles } from "../../../theme/theme"
-
-interface Tour{
-  name: String,
-  _id: String
-}
+import { Tour } from "../../../ts/interfaces/tour.interface"
 
 interface Props {
   date: Date,

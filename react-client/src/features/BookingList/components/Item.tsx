@@ -1,16 +1,10 @@
 import { StyleSheet, Text, View } from "react-native"
 import KebabBtn from "../../../components/KebabBtn"
 import { colors, styles } from "../../../theme/theme"
+import { Booking } from "../../../ts/interfaces/booking.interface"
 import ItemInfo from "./ItemInfo"
 
-interface Props {
-  startdate: Date,
-  tours: [],
-  contact: {name: String},
-  ntravelers: Number
-}
-
-const Item = ({startdate, tours, contact, ntravelers}: Props) => {
+const Item = ({startdate, tours, contact, ntravelers}: Booking) => {
   return (
     <View style={{alignItems: 'center', marginBottom: 10}}>
       <View style={customStyles.container}>
