@@ -1,8 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import BookingDateList from './src/features/BookingList/components/BookingDateList';
-import BookingList from './src/features/BookingList/components/BookingList';
-
+import BookingList from './src/features/BookingList/page/BookingList';
 
 export default function App() {
   return (
@@ -18,6 +16,5 @@ const customStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     margin: 12,
-    marginTop:30
   },
 });

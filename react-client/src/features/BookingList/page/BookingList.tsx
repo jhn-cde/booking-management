@@ -1,8 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { View } from "react-native"
-import StatusMenu from "../StatusMenu"
-import BookingDateList from "./BookingDateList"
+import StatusMenu from "../components/StatusMenu"
+import BookingDateList from "../components/BookingDateList"
 
 interface data{
   _id: {year: number, month: number},
@@ -10,7 +10,7 @@ interface data{
 }
 
 const BookingList = () => {
-  const [state, setState] = useState('Pending')
+  const [toShow, setToShow] = useState('Pending')
   const [bookings, setBookings] = useState<data[]>([])
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const BookingList = () => {
   return (
     <View>
       <View>
-        <StatusMenu state={state} setState={setState}/>
+        <StatusMenu state={toShow} setState={setToShow}/>
       </View>
       <View>
         {bookings.map((list, index) => 
@@ -32,7 +32,7 @@ const BookingList = () => {
             key={index} 
             date={list._id} 
             bookings={list.bookings}
-            state={state}
+            state={toShow}
           />
         )}
       </View>
