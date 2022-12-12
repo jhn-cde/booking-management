@@ -18,6 +18,5 @@ const customStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    margin: 12,
   },
 });
