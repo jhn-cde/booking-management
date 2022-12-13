@@ -15,10 +15,14 @@ const StackNavigator = () => {
         headerTitleStyle:{
           ...styles.title,
           color: colors.secondary
-        },
+        }
       }}
     >
-      <Stack.Screen name='tabs' component={Tabs}/>
+      <Stack.Screen
+        name='tabs' 
+        component={Tabs}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   )
 }
