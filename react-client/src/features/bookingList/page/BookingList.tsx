@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import { View } from "react-native"
 import StatusMenu from "../components/StatusMenu"
 import BookingDateList from "../components/BookingDateList"
+import { colors } from "../../../theme/theme"
+import PageContainer from "../../../components/PageContainer"
 
 interface data{
   _id: {year: number, month: number},
@@ -26,7 +28,7 @@ const BookingList = () => {
   }, [])
 
   return (
-    <View>
+    <PageContainer>
       <View>
         <StatusMenu state={toShow} setState={setToShow}/>
       </View>
@@ -40,7 +42,7 @@ const BookingList = () => {
           />
         )}
       </View>
-    </View>
+    </PageContainer>
   )
 }
 
