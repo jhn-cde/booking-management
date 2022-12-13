@@ -19,7 +19,7 @@ const Tabs = () => {
           title: 'Calendario', 
           tabBarIcon: ({ color }) => (
             <Icon name="calendar" color={color} size={26} />
-          ),
+          )
         }}
       />
       <Tab.Screen
@@ -28,7 +28,7 @@ const Tabs = () => {
         options={{
           title: 'Record',
           tabBarIcon: ({ color }) => (
-            <Icon name="calendar" color={color} size={26} />
+            <Icon name="analytics" color={color} size={26} />
           ),
         }}
       />
