@@ -1,10 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { colors, styles } from '../theme/theme'
+import Tabs from './Tabs'
 
 const Stack = createNativeStackNavigator()
-
-import React from 'react'
-import BookingList from '../features/bookingList/page/BookingList'
-import { colors, styles } from '../theme/theme'
 
 const StackNavigator = () => {
   return (
@@ -20,7 +18,7 @@ const StackNavigator = () => {
         },
       }}
     >
-      <Stack.Screen name='bookings' component={BookingList}/>
+      <Stack.Screen name='tabs' component={Tabs}/>
     </Stack.Navigator>
   )
 }
