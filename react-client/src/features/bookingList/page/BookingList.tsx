@@ -14,7 +14,7 @@ const BookingList = () => {
   const [bookings, setBookings] = useState<data[]>([])
 
   useEffect(() => {
-    axios.get<data[]>('http://localhost:3000/api/bookings/groupdate')
+    axios.get<data[]>('http://192.168.1.3:3000/api/bookings/groupdate')
     .then(response => {
       if(response.status === 200){
         setBookings(response.data)
