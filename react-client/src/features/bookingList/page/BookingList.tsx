@@ -5,6 +5,7 @@ import StatusMenu from "../components/StatusMenu"
 import BookingDateList from "../components/BookingDateList"
 import { colors } from "../../../theme/theme"
 import PageContainer from "../../../components/PageContainer"
+import FloatingButton from "../../../components/FloatingButton"
 
 interface data{
   _id: {year: number, month: number},
@@ -42,6 +43,10 @@ const BookingList = () => {
           />
         )}
       </View>
+      <FloatingButton
+        navigateTo={() => {}}
+        iconName='add-outline'
+      />
     </PageContainer>
   )
 }
