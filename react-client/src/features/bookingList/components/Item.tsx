@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import KebabBtn from "../../../components/KebabBtn"
-import { colors } from "../../../theme/theme"
+import { darkTheme, selectColors, selectDark } from "../../../theme/themeSlice"
 import { Booking } from "../../../ts/interfaces/booking.interface"
 import ItemInfo from "./ItemInfo"
 
@@ -8,6 +9,8 @@ interface Props extends Booking{
   navigateTo: (_id: String) => void
 }
 const Item = ({_id, startdate, tours, contact, ntravelers, navigateTo}: Props) => {
+  const colors = useAppSelector(selectColors);
+
   return (
     <View 
       style={{alignItems: 'center', marginBottom: 10}}
@@ -18,7 +21,7 @@ const Item = ({_id, startdate, tours, contact, ntravelers, navigateTo}: Props) =
           onPress={() => navigateTo(_id)}
           activeOpacity={0.5}
         >
-          <Text style={{...customStyles.title, marginBottom: 3}}>
+          <Text style={{...customStyles.title, marginBottom: 3, color: colors.secondary}}>
             {contact.name} - {String(ntravelers)}p
           </Text>
           <ItemInfo
@@ -48,7 +51,6 @@ const customStyles = StyleSheet.create({
     width: '100%'
   },
   title:{
-    color: colors.secondary,
     fontWeight: '500',
     fontSize: 20,
   }

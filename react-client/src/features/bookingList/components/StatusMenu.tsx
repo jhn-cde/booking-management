@@ -1,12 +1,16 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useAppSelector } from '../../../app/hooks';
+import { selectColors } from '../../../theme/themeSlice';
 
 interface Props {
-  state: String | undefined,
+  state: String,
   setState: Dispatch<SetStateAction<any>>
 }
 
 const StatusMenu = ({state, setState}: Props) => {
+  const colors = useAppSelector(selectColors);
+
   return (
     <View style={customStyles.container}>
       <View style={customStyles.option}>
@@ -14,7 +18,10 @@ const StatusMenu = ({state, setState}: Props) => {
           onPress={() => setState('Pending')}
         >
           <Text
-            style={(state && state==='Pending')&&customStyles.selected}
+            style={{
+              ...(state==='Pending')&&customStyles.selected,
+              color: colors.text
+            }}
           >Pending</Text>
         </TouchableOpacity>
       </View>
@@ -23,16 +30,22 @@ const StatusMenu = ({state, setState}: Props) => {
           onPress={() => setState('Cancelled')}
         >
           <Text
-            style={(state && state==='Cancelled')&&customStyles.selected}
+            style={{
+              ...(state==='Cancelled')&&customStyles.selected,
+            color: colors.text
+          }}
           >Cancelado</Text>
         </TouchableOpacity>
       </View>
       <View style={{...customStyles.option}}>
         <TouchableOpacity
-          onPress={() => setState(undefined)}
+          onPress={() => setState('all')}
         >
           <Text
-            style={(!state)&&customStyles.selected}
+            style={{
+              ...(state==='all')&&customStyles.selected,
+              color: colors.text
+            }}
           >Ver todo</Text>
         </TouchableOpacity>
       </View>
@@ -46,11 +59,11 @@ const customStyles = StyleSheet.create({
     marginVertical: 16
   },
   option:{
-    marginEnd: 10
+    marginEnd: 10,
   },
   selected:{
     fontWeight: 'bold',
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
   },
 })
 
