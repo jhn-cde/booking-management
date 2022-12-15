@@ -7,7 +7,7 @@ class Controller {
     try {
       const response = await this.service.getAll( req.query );
 
-      return res.send({ status: "OK", data: response });
+      return res.send(response);
     } catch (e) {
       next(e);
     }
@@ -26,7 +26,7 @@ class Controller {
     try {
       const response = await this.service.get( id );
 
-      return res.send({status:"ok", data: response});
+      return res.send(response);
     } catch ( e ) {
       next(e);
     }
@@ -37,7 +37,7 @@ class Controller {
     try {
       const response = await this.service.insert( body );
 
-      return res.status(201).send({ status: "OK", data: response });
+      return res.status(201).send(response);
     } catch ( e ) {
       next( e );
     }
