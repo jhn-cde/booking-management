@@ -3,15 +3,16 @@ import { styles } from "../../../theme/theme"
 import { Booking } from "../../../ts/interfaces/booking.interface";
 import Item from "./Item"
 
-interface Props {
+interface Props{
   date: {month: number, year: number},
   bookings: Booking[],
-  state: String | undefined
+  state: String | undefined,
+  navigateTo: (_id: String) => void
 }
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const BookingDateList = ({date, bookings, state}: Props) => {
+const BookingDateList = ({date, bookings, state, navigateTo}: Props) => {
   return (
     <View style={{marginBottom: 15}}>
       <View style={{marginBottom: 10}}>
@@ -24,7 +25,7 @@ const BookingDateList = ({date, bookings, state}: Props) => {
           bookings.map((booking, index) =>
             (!state || state===booking.state)&&
             <View key={index} style={{marginBottom: 10}}> 
-              <Item {...booking}/>
+              <Item {...booking} navigateTo={navigateTo}/>
             </View>
           )
         }
