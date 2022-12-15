@@ -3,8 +3,9 @@ import BookingList from "../features/bookingList/page/BookingList";
 import { colors } from "../theme/theme";
 import Icon from '@expo/vector-icons/Ionicons';
 import Record from "../features/record/page/Record";
+import { BottomTabParamList } from "./types";
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator<BottomTabParamList>();
 const Tabs = () => {
   return (
     <Tab.Navigator
@@ -13,7 +14,7 @@ const Tabs = () => {
       activeColor={colors.secondary}
     >
       <Tab.Screen
-        name="bookings"
+        name="Bookings"
         component={BookingList}
         options={{
           title: 'Calendario', 
@@ -23,7 +24,7 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="record"
+        name="Record"
         component={Record}
         options={{
           title: 'Record',

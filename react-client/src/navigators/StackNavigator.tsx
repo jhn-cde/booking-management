@@ -1,8 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import Booking from '../features/booking/page/Booking'
 import { colors, styles } from '../theme/theme'
 import Tabs from './Tabs'
+import { RootStackParamList } from './types'
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const StackNavigator = () => {
   return (
@@ -19,9 +21,14 @@ const StackNavigator = () => {
       }}
     >
       <Stack.Screen
-        name='tabs' 
+        name='Tabs' 
         component={Tabs}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='Booking' 
+        component={Booking}
+        options={{title: 'Agregar Reserva'}}
       />
     </Stack.Navigator>
   )
