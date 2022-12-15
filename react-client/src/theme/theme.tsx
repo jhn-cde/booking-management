@@ -1,24 +1,6 @@
 import { StyleSheet } from "react-native"
 
-export const colors = {
-  primary: '#ffffff',
-  secondary: '#3066be',
-  acento: '#ffc40c',
-
-  text: '#000000',
-  border: '#aaaaaa',
-  opacity: '#eeeeee',
-  
-  danger: '#ca0b00',
-  dangerPress: '#843D39',
-  succes: '#198754',
-  cancel: '#8B008B'
-}
-
 export const styles = StyleSheet.create({
-  globalPadding:{
-    paddingHorizontal: 20
-  },
   title:{
     fontSize: 30,
     marginBottom: 10
@@ -26,9 +8,6 @@ export const styles = StyleSheet.create({
   subtitle:{
     fontSize: 20,
     fontWeight: '500'
-  },
-  text:{
-    fontSize: 15
   },
   input:{
     fontSize: 18,

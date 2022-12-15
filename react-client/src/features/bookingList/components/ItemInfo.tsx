@@ -14,10 +14,10 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 
 const ItemInfo = ({date, tours}: Props) => {
   const colors = useAppSelector(selectColors);
-  
+
   return (
     <View style={customStyles.container}>
-      <Text style={{...styles.text, color: colors.text}}>
+      <Text style={{color: colors.text}}>
         {`${format(new Date(date), 'EEEE d')}`} - {
           tours.map((tour, index) => 
             <Text key={index}>
