@@ -1,12 +1,14 @@
-import { NavigationContainer } from '@react-navigation/native'
-import { StatusBar } from 'react-native';
-import StackNavigator from './src/navigators/StackNavigator';
+import { DefaultTheme, NavigationContainer, DarkTheme } from '@react-navigation/native'
+import { StatusBar, useColorScheme } from 'react-native';
+import { Provider } from 'react-redux';
+import MyApp from './src/app/App';
+import store from './src/app/store';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StackNavigator />
+    <Provider store={store}>
+      <MyApp />
       <StatusBar/>
-    </NavigationContainer>
+    </Provider>
   );
 }
