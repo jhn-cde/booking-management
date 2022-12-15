@@ -1,8 +1,11 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native"
 import Icon from '@expo/vector-icons/SimpleLineIcons';
-import { colors, styles } from "../theme/theme"
+import { selectColors } from "../theme/themeSlice";
+import { useAppSelector } from "../app/hooks";
 
 const KebabBtn = () => {
+  const colors = useAppSelector(selectColors);
+
   return (
     <View
       style={customStyles.botonContainer}
@@ -17,7 +20,8 @@ const KebabBtn = () => {
           <Icon
             name={'options-vertical'}
             style={{
-              ...customStyles.text,
+              fontSize: 22,
+              color: colors.text
             }}
           />
         )}
@@ -33,10 +37,6 @@ const customStyles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  text:{
-    fontSize: 22,
-    color: colors.text
   }
 })
 
