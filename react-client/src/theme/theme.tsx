@@ -25,17 +25,13 @@ export const styles = StyleSheet.create({
   },
   subtitle:{
     fontSize: 20,
-    fontWeight: '500',
-    color: colors.acento
+    fontWeight: '500'
   },
   text:{
-    color: colors.text,
     fontSize: 15
   },
   input:{
-    color: colors.text,
     fontSize: 18,
-    borderColor: colors.border,
     borderBottomWidth: 1,
     paddingVertical: 5,
     paddingHorizontal: 3,
@@ -47,3 +43,27 @@ export const styles = StyleSheet.create({
     fontWeight: '500'
   }
 })
+
+export const lightScheme = {
+  dark: false,
+  colors: {
+    primary: "#FFC40C",
+    secondary: "#3066BE",
+    background: "#F2F2F2",
+    text: "#1C1C1E",
+    border: "#D8D8D8",
+    card: "#FFFFFF",
+  }
+}
+
+export const darkScheme = {
+  dark: true,
+  colors: {
+    primary: "#FFC40C",
+    secondary: "#3066BE",
+    background: "#010101",
+    text: '#E5E5E7',
+    border: "#272729",
+    card: "#121212",
+  }
+}
