@@ -1,14 +1,23 @@
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import KebabBtn from "../../../components/KebabBtn"
-import { colors, styles } from "../../../theme/theme"
+import { colors } from "../../../theme/theme"
 import { Booking } from "../../../ts/interfaces/booking.interface"
 import ItemInfo from "./ItemInfo"
 
-const Item = ({startdate, tours, contact, ntravelers}: Booking) => {
+interface Props extends Booking{
+  navigateTo: (_id: String) => void
+}
+const Item = ({_id, startdate, tours, contact, ntravelers, navigateTo}: Props) => {
   return (
-    <View style={{alignItems: 'center', marginBottom: 10}}>
+    <View 
+      style={{alignItems: 'center', marginBottom: 10}}
+    >
       <View style={customStyles.container}>
-        <View style={{marginLeft: 5, width: '85%'}}>
+        <TouchableOpacity
+          style={{marginLeft: 5, width: '85%'}}
+          onPress={() => navigateTo(_id)}
+          activeOpacity={0.5}
+        >
           <Text style={{...customStyles.title, marginBottom: 3}}>
             {contact.name} - {String(ntravelers)}p
           </Text>
@@ -16,7 +25,7 @@ const Item = ({startdate, tours, contact, ntravelers}: Booking) => {
             date={startdate}
             tours={tours} 
           />
-        </View>
+        </TouchableOpacity>
         <View>
           <KebabBtn />
         </View>
