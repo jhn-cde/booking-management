@@ -3,16 +3,16 @@ import { useEffect, useState } from "react"
 import { View } from "react-native"
 import StatusMenu from "../components/StatusMenu"
 import BookingDateList from "../components/BookingDateList"
-import { colors } from "../../../theme/theme"
 import PageContainer from "../../../components/PageContainer"
 import FloatingButton from "../../../components/FloatingButton"
+import { BottomTabScreenProps } from "../../../navigators/types"
 
 interface data{
   _id: {year: number, month: number},
   bookings: []
 }
 
-const BookingList = () => {
+const BookingList = ({navigation, route}: BottomTabScreenProps<'Bookings'>) => {
   const [toShow, setToShow] = useState('Pending')
   const [bookings, setBookings] = useState<data[]>([])
 
@@ -28,6 +28,10 @@ const BookingList = () => {
     }) 
   }, [])
 
+  const navigateTo = (_id: String) =>{
+    navigation.navigate('Booking', {id: _id})
+  }
+
   return (
     <PageContainer>
       <View>
@@ -40,11 +44,12 @@ const BookingList = () => {
             date={list._id} 
             bookings={list.bookings}
             state={toShow}
+            navigateTo={navigateTo}
           />
         )}
       </View>
       <FloatingButton
-        navigateTo={() => {}}
+        navigateTo={() => navigation.navigate('Booking')}
         iconName='add-outline'
       />
     </PageContainer>
