@@ -10,46 +10,39 @@ interface Props {
 
 const FloatingButton = ({navigateTo, iconName}: Props) => {
   return (
-    <View style={customStyles.botonContainer}>
-      <TouchableOpacity
-        style={{
-            ...customStyles.boton,
-            backgroundColor: colors.acento
+    <TouchableOpacity
+      style={{
+          ...customStyles.btn,
+          backgroundColor: colors.acento
+        }}
+      onPress={ navigateTo }
+      activeOpacity={0.7}
+    >
+      {(
+        <Icon
+          name={iconName}
+          style={{
+            ...customStyles.text,
           }}
-        onPress={ navigateTo }
-        activeOpacity={0.7}
-      >
-        {(
-          <Icon
-            name={iconName}
-            style={{
-              ...customStyles.text,
-            }}
-          />
-        )}
-      </TouchableOpacity>
-    </View>
+        />
+      )}
+    </TouchableOpacity>
   )
 }
 
 const customStyles = StyleSheet.create({
-  botonContainer:{
+  btn:{
     position: 'absolute',
     bottom: 15,
     right: 15,
-  },
-  touchable:{
-    height: 55,
-    width: 55,
-    borderRadius: 50,
-  },
-  boton:{
     height: 55,
     width: 55,
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 3
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
   },
   text:{
     fontSize: 35,
