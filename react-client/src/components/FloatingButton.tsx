@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, } from 'react-native'
 import { Ionicons as Icon} from '@expo/vector-icons';
-import { colors } from '../theme/theme'
+import { useAppSelector } from '../app/hooks';
+import { selectColors } from '../theme/themeSlice';
 
 interface Props {
   navigateTo: () => void,
@@ -9,11 +10,13 @@ interface Props {
 }
 
 const FloatingButton = ({navigateTo, iconName}: Props) => {
+  const colors = useAppSelector(selectColors);
+
   return (
     <TouchableOpacity
       style={{
           ...customStyles.btn,
-          backgroundColor: colors.acento
+          backgroundColor: colors.secondary
         }}
       onPress={ navigateTo }
       activeOpacity={0.7}
@@ -22,7 +25,8 @@ const FloatingButton = ({navigateTo, iconName}: Props) => {
         <Icon
           name={iconName}
           style={{
-            ...customStyles.text,
+            fontSize: 30,
+            color: '#ffffff'
           }}
         />
       )}
@@ -33,20 +37,15 @@ const FloatingButton = ({navigateTo, iconName}: Props) => {
 const customStyles = StyleSheet.create({
   btn:{
     position: 'absolute',
-    bottom: 15,
-    right: 15,
-    height: 55,
-    width: 55,
+    bottom: 20,
+    right: 20,
+    height: 60,
+    width: 60,
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 3,
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.2)',
-  },
-  text:{
-    fontSize: 35,
-    color: colors.primary
   }
 })
 

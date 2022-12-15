@@ -1,10 +1,13 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { colors } from '../theme/theme'
+import { useSelector } from 'react-redux';
+import { selectColors } from '../theme/themeSlice';
 
 const PageContainer = ({children}:{children: React.ReactNode}) => {
+  const colors = useSelector(selectColors);
+
   return (
-    <View style={customStyles.container}>
+    <View style={{...customStyles.container, backgroundColor: colors.background}}>
       {children}
     </View>
   )
@@ -12,7 +15,6 @@ const PageContainer = ({children}:{children: React.ReactNode}) => {
 
 const customStyles = StyleSheet.create({
   container:{
-    backgroundColor: colors.primary,
     flex: 1,
     paddingHorizontal: 15,
   }
