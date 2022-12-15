@@ -1,12 +1,16 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { useAppSelector } from '../app/hooks'
 import Booking from '../features/booking/page/Booking'
-import { colors, styles } from '../theme/theme'
+import { styles } from '../theme/theme'
+import { selectColors } from '../theme/themeSlice'
 import Tabs from './Tabs'
 import { RootStackParamList } from './types'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const StackNavigator = () => {
+  const colors = useAppSelector(selectColors);
+  
   return (
     <Stack.Navigator
       screenOptions={{

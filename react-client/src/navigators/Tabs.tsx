@@ -1,15 +1,18 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import BookingList from "../features/bookingList/page/BookingList";
-import { colors } from "../theme/theme";
 import Icon from '@expo/vector-icons/Ionicons';
 import Record from "../features/record/page/Record";
 import { BottomTabParamList } from "./types";
+import { useAppSelector } from "../app/hooks";
+import { selectColors } from "../theme/themeSlice";
 
 const Tab = createMaterialBottomTabNavigator<BottomTabParamList>();
 const Tabs = () => {
+  const colors = useAppSelector(selectColors);
+
   return (
     <Tab.Navigator
-      barStyle={{ backgroundColor: colors.primary }}
+      barStyle={{ backgroundColor: colors.card }}
       backBehavior="firstRoute"
       activeColor={colors.secondary}
     >
