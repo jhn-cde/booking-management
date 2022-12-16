@@ -1,11 +1,14 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { View } from "react-native"
+import { Text, View } from "react-native"
 import StatusMenu from "../components/StatusMenu"
 import BookingDateList from "../components/BookingDateList"
 import PageContainer from "../../../components/PageContainer"
 import FloatingButton from "../../../components/FloatingButton"
 import { BottomTabScreenProps } from "../../../navigators/types"
+import { styles } from '../../../theme/theme'
+import { useAppSelector } from "../../../app/hooks"
+import { selectColors } from "../../../theme/themeSlice"
 
 interface data{
   _id: {year: number, month: number},
@@ -13,6 +16,7 @@ interface data{
 }
 
 const BookingList = ({navigation, route}: BottomTabScreenProps<'Bookings'>) => {
+  const colors = useAppSelector(selectColors);
   const [toShow, setToShow] = useState('Pending')
   const [bookings, setBookings] = useState<data[]>([])
 
@@ -34,6 +38,14 @@ const BookingList = ({navigation, route}: BottomTabScreenProps<'Bookings'>) => {
 
   return (
     <PageContainer>
+      <Text
+        style={{
+          ...styles.title, 
+          color: colors.secondary,
+        marginVertical: 10}}
+      >
+        Reservas
+      </Text>
       <View>
         <StatusMenu state={toShow} setState={setToShow}/>
       </View>

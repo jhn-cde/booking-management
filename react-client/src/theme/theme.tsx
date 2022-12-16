@@ -2,8 +2,7 @@ import { StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
   title:{
-    fontSize: 30,
-    marginBottom: 10
+    fontSize: 30
   },
   subtitle:{
     fontSize: 20,
