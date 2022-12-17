@@ -19,7 +19,8 @@ const BookingForm = ({initialState}: {initialState: BookingInterface}) => {
         backgroundColor: colors.border,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        maxWidth: '100%'
       }}>
       <MyPicker
         options={countries} 
