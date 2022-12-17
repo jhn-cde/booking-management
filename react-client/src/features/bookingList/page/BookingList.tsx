@@ -9,6 +9,7 @@ import { BottomTabScreenProps } from "../../../navigators/types"
 import { styles } from '../../../theme/theme'
 import { useAppSelector } from "../../../app/hooks"
 import { selectColors } from "../../../theme/themeSlice"
+import Refresh from "../../../components/Refresh"
 
 interface data{
   _id: {year: number, month: number},
@@ -18,9 +19,13 @@ interface data{
 const BookingList = ({navigation, route}: BottomTabScreenProps<'Bookings'>) => {
   const colors = useAppSelector(selectColors);
   const [toShow, setToShow] = useState('Pending')
-  const [bookings, setBookings] = useState<data[]>([])
+  const [bookings, setBookings] = useState<data[]|undefined>(undefined)
 
   useEffect(() => {
+    fetchBookings()
+  }, [])
+
+  const fetchBookings = () => {
     axios.get<data[]>('http://192.168.1.3:3000/api/bookings/groupdate')
     .then(response => {
       if(response.status === 200){
@@ -29,11 +34,15 @@ const BookingList = ({navigation, route}: BottomTabScreenProps<'Bookings'>) => {
     })
     .catch(err => {
       console.log('Error!!', err)
-    }) 
-  }, [])
+    })
+  }
 
   const navigateTo = (_id: String) =>{
     navigation.navigate('Booking', {id: _id})
+  }
+
+  if(!bookings){
+    return (<Refresh refreshFun={fetchBookings}/>)
   }
 
   return (
