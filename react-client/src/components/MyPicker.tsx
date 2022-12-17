@@ -1,5 +1,5 @@
 import { Picker } from '@react-native-picker/picker';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TextInput, View } from 'react-native';
 import { useAppSelector } from '../app/hooks';
 import { styles } from '../theme/theme';
@@ -22,12 +22,11 @@ const MyPicker = ({options, initialValue, changeValue}: Props) => {
 
   const updateValue = (selected: string) => {
     setSelectedValue(selected)
-    changeValue(selected)
   }
 
   return (
     <>
-      <View style={{minWidth: '50%'}}>
+      <View style={{minWidth: '45%'}}>
         <TextInput
           style={{...styles.input}}
           placeholder="Search"
@@ -35,11 +34,12 @@ const MyPicker = ({options, initialValue, changeValue}: Props) => {
           onChangeText={setSearchTerm}
         />
       </View>
-      <View style={{minWidth: '42%'}}>
+      <View style={{minWidth: '48%'}}>
         <Picker
           selectedValue={selectedValue}
           onValueChange={updateValue}
-          
+
+          mode={'dropdown'}
           dropdownIconColor={colors.text}
           itemStyle={{color:colors.text}}
         >
