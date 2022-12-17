@@ -1,11 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { useAppSelector } from "../../../app/hooks"
 import KebabBtn from "../../../components/KebabBtn"
-import { darkTheme, selectColors, selectDark } from "../../../theme/themeSlice"
-import { Booking } from "../../../ts/interfaces/booking.interface"
+import { selectColors } from "../../../theme/themeSlice"
+import { BookingInterface } from "../../../ts/interfaces/booking.interface"
 import ItemInfo from "./ItemInfo"
 
-interface Props extends Booking{
+interface Props extends BookingInterface{
   navigateTo: (_id: String) => void
 }
 const Item = ({_id, startdate, tours, contact, ntravelers, navigateTo}: Props) => {
