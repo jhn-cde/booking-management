@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingVertical: 5,
     paddingHorizontal: 3,
-    width: '100%',
+    borderColor: 'grey'
   },
   danger:{
     borderBottomWidth: StyleSheet.hairlineWidth,
