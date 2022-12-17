@@ -1,6 +1,6 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useEffect, useState } from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, View } from 'react-native';
 import { useAppSelector } from '../app/hooks';
 import { styles } from '../theme/theme';
 import { selectColors } from '../theme/themeSlice';
@@ -27,24 +27,27 @@ const MyPicker = ({options, initialValue, changeValue}: Props) => {
 
   return (
     <>
-      <TextInput
-        style={{...styles.input, minWidth: 150}}
-        placeholder="Search"
-        value={searchTerm}
-        onChangeText={setSearchTerm}
-      />
-      <Picker
-        selectedValue={selectedValue}
-        onValueChange={updateValue}
-        
-        style={{minWidth: 120}}
-        dropdownIconColor={colors.text}
-        itemStyle={{color:colors.text}}
-      >
-        {filteredOptions.map(option => (
-          <Picker.Item label={option} value={option} key={option} />
-        ))}
-      </Picker>
+      <View style={{minWidth: '50%'}}>
+        <TextInput
+          style={{...styles.input}}
+          placeholder="Search"
+          value={searchTerm}
+          onChangeText={setSearchTerm}
+        />
+      </View>
+      <View style={{minWidth: '42%'}}>
+        <Picker
+          selectedValue={selectedValue}
+          onValueChange={updateValue}
+          
+          dropdownIconColor={colors.text}
+          itemStyle={{color:colors.text}}
+        >
+          {filteredOptions.map(option => (
+            <Picker.Item label={option} value={option} key={option} />
+          ))}
+        </Picker>
+      </View>
     </>
   );
 };
