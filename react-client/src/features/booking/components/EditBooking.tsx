@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, View } from 'react-native'
 import Refresh from '../../../components/Refresh'
 import useForm from '../../../hooks/useForm'
 import { BookingInterface } from '../../../ts/interfaces/booking.interface'
@@ -25,14 +25,12 @@ const EditBooking = ({id}: {id:String}) => {
     })
   }
 
-  if(booking){
-    return (
-      <Refresh refreshFun={fetchBooking}/>
-    )
+  if(!booking){
+    return (<Refresh refreshFun={fetchBooking}/>)
   }
   return (
     <View>
-      <Text>Edit</Text>
+      <Text>{booking.contact.name}</Text>
     </View>
   )
 }
