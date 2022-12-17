@@ -1,4 +1,4 @@
-export interface Tour{
+export interface TourInterface{
   name: String,
   _id: String
 }

@@ -1,4 +1,4 @@
-export interface Booking {
+export interface BookingInterface {
   startdate: Date,
   tours: [],
   contact: {name: String},
