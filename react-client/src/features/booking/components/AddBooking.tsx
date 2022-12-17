@@ -1,11 +1,21 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import BookingForm from './BookingForm'
 
 const AddBooking = () => {
   return (
-    <View>
-      <Text>AddBooking</Text>
-    </View>
+    <BookingForm 
+      initialState={{
+        startdate: new Date(),
+        tours: [],
+        contact: {name: '', _id:''},
+        ntravelers: 1,
+        price: 0,
+        travelers: [],
+        userId: '',
+        _id: '',
+        foodType:'',
+        state: 'Pending'
+      }}/>
   )
 }
 
