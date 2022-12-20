@@ -4,7 +4,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
   Tabs: undefined,
-  Booking: {id: String} | undefined
+  Booking: {id: String},
+  AddBooking: undefined
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useAppSelector } from '../app/hooks'
+import AddBooking from '../features/addBooking/page/AddBooking'
 import Booking from '../features/booking/page/Booking'
 import { styles } from '../theme/theme'
 import { selectColors } from '../theme/themeSlice'
@@ -32,6 +33,12 @@ const StackNavigator = () => {
       <Stack.Screen
         name='Booking' 
         component={Booking}
+        options={{title: 'Reserva'}}
+      />
+
+      <Stack.Screen
+        name='AddBooking' 
+        component={AddBooking}
         options={{title: 'Agregar Reserva'}}
       />
     </Stack.Navigator>

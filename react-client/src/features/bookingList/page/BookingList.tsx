@@ -70,7 +70,7 @@ const BookingList = ({navigation, route}: BottomTabScreenProps<'Bookings'>) => {
         )}
       </View>
       <FloatingButton
-        navigateTo={() => navigation.navigate('Booking')}
+        navigateTo={() => navigation.navigate('AddBooking')}
         iconName='add-outline'
       />
     </PageContainer>
