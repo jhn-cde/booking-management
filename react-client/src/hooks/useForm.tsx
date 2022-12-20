@@ -1,8 +1,8 @@
 import { useState } from "react"
 
 interface Target{
-  name: string,
-  value: any
+  k: string,
+  v: any
 }
 
 const useForm = (initialState: any) => {
@@ -12,7 +12,7 @@ const useForm = (initialState: any) => {
   const handleInputChange = (target: Target) => {
     setValues({
       ...values,
-      [ target.name ]: target.value
+      [ target.k ]: target.v
     })
   }
 
