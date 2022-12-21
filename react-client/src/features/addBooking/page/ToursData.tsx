@@ -1,14 +1,13 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import PageContainer from '../../../components/PageContainer'
-import ContactData from '../components/ContactData'
 
-const AddBooking = () => {
+const ToursData = () => {
   return (
     <PageContainer>
-      <ContactData />
+      <Text>Contact</Text>
     </PageContainer>
   )
 }
 
-export default AddBooking
+export default ToursData

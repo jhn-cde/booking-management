@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useAppSelector } from '../app/hooks'
-import AddBooking from '../features/addBooking/page/AddBooking'
+import AddBookingNavigator from '../features/addBooking/navigator/AddBookingNavigator'
 import Booking from '../features/booking/page/Booking'
 import { styles } from '../theme/theme'
 import { selectColors } from '../theme/themeSlice'
@@ -16,7 +16,7 @@ const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         contentStyle:{
-          backgroundColor: colors.primary
+          backgroundColor: colors.background
         },
         headerShadowVisible: false,
         headerTitleStyle:{
@@ -38,8 +38,8 @@ const StackNavigator = () => {
 
       <Stack.Screen
         name='AddBooking' 
-        component={AddBooking}
-        options={{title: 'Agregar Reserva'}}
+        component={AddBookingNavigator}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   )
