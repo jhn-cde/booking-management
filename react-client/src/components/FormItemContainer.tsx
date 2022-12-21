@@ -1,4 +1,5 @@
 import React from 'react'
+import Icon from '@expo/vector-icons/Ionicons';
 import { StyleSheet, Text, View } from 'react-native'
 import { useSelector } from 'react-redux';
 import { selectColors } from '../theme/themeSlice';
@@ -6,10 +7,11 @@ import { styles } from '../theme/theme';
 
 interface Props{
   children: React.ReactNode,
-  name?: String | undefined
-}
+  name?: String | undefined,
+  iconName: keyof typeof Icon.glyphMap,
+};
 
-const FormItemContainer = ({children, name}:Props) => {
+const FormItemContainer = ({children, name, iconName}:Props) => {
   const colors = useSelector(selectColors);
 
   return (
@@ -19,6 +21,16 @@ const FormItemContainer = ({children, name}:Props) => {
         ...customStyles.container, 
         backgroundColor: colors.border
       }}>
+
+        <Icon
+          name={iconName} 
+          style={{
+            ...styles.input, 
+            borderBottomWidth: 0,
+            marginRight: 10
+          }} 
+          color={colors.secondary} 
+          size={30} />
         {children}
       </View>
     </View>
@@ -30,7 +42,7 @@ const customStyles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     width: '100%'
   }
