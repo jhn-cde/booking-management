@@ -1,5 +1,4 @@
 import React from 'react'
-import Icon from '@expo/vector-icons/Ionicons';
 import { styles } from '../theme/theme';
 import { useSelector } from 'react-redux';
 import { selectColors } from '../theme/themeSlice';
@@ -8,31 +7,23 @@ import { TextInput } from 'react-native';
 interface Props{
   value: string,
   handleInputChange: (val: string) => void,
-  iconName: keyof typeof Icon.glyphMap,
-  placeholder: string
-}
+  placeholder: string,
+  pstyles?: {},
+  keyboardtype?: 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad' | 'url'
+};
 
-const CustomInput = ({value, iconName, placeholder, handleInputChange}: Props) => {
+const CustomInput = ({value, placeholder, pstyles, keyboardtype, handleInputChange}: Props) => {
   const colors = useSelector(selectColors);
 
   return (
-    <>
-      <Icon
-        name={iconName} 
-        style={{
-          ...styles.input, 
-          borderBottomWidth: 0
-        }} 
-        color={colors.secondary} 
-        size={30} />
-      <TextInput
-        style={{...styles.input, color: colors.text, width:'80%'}}
-        placeholderTextColor={'gray'}
-        placeholder={placeholder}
-        value={value}
-        onChangeText={handleInputChange}
-      />
-    </>
+    <TextInput
+      style={{...styles.input, ...pstyles, color: colors.text, width:'80%'}}
+      placeholderTextColor={'gray'}
+      placeholder={placeholder}
+      value={value}
+      onChangeText={handleInputChange}
+      keyboardType={keyboardtype}
+    />
   )
 }
 
