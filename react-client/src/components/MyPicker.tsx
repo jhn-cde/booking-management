@@ -4,50 +4,51 @@ import { TextInput, View } from 'react-native';
 import { useAppSelector } from '../app/hooks';
 import { styles } from '../theme/theme';
 import { selectColors } from '../theme/themeSlice';
+import CustomInput from './CustomInput';
 
 interface Props{
   options: string[],
-  initialValue: string,
-  changeValue: (newValue: String) => void
+  selectedValue: string,
+  setSelectedValue: (selected: String) => void
 }
 
-const MyPicker = ({options, initialValue, changeValue}: Props) => {
+const MyPicker = ({options, selectedValue, setSelectedValue}: Props) => {
   const colors = useAppSelector(selectColors);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedValue, setSelectedValue] = useState(initialValue);
+  const [filteredData, setFilteredData] = useState(options);
 
-  const filteredOptions = options.filter(option =>
-    option.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleSearch = (text: string) => {
+    setSearchTerm(text)
+    const newData = options.filter((options) => options.toLowerCase().includes(text.toLowerCase()));
+    setFilteredData(newData);
 
-  const updateValue = (selected: string) => {
-    setSelectedValue(selected)
+    if(newData.length === 1){
+      setSelectedValue(newData[0])
+    }
   }
 
   return (
     <>
-      <View style={{minWidth: '45%'}}>
-        <TextInput
-          style={{...styles.input}}
-          placeholder="Search"
-          value={searchTerm}
-          onChangeText={setSearchTerm}
-        />
-      </View>
-      <View style={{minWidth: '48%'}}>
-        <Picker
-          selectedValue={selectedValue}
-          onValueChange={updateValue}
+      <Picker
+        selectedValue={selectedValue}
+        onValueChange={setSelectedValue}
 
-          mode={'dropdown'}
-          dropdownIconColor={colors.text}
-          itemStyle={{color:colors.text}}
-        >
-          {filteredOptions.map(option => (
-            <Picker.Item label={option} value={option} key={option} />
-          ))}
-        </Picker>
-      </View>
+        style={{flex: 2}}
+        mode={'dropdown'}
+        dropdownIconColor={colors.text}
+        itemStyle={{color:colors.text}}
+      >
+        {filteredData.map(option => (
+          <Picker.Item label={option} value={option} key={option} />
+        ))}
+      </Picker>
+
+      <CustomInput
+        value={searchTerm}
+        placeholder={'Buscar'}
+        handleInputChange={handleSearch}
+        pstyles={{flex: 1}}
+      />
     </>
   );
 };
