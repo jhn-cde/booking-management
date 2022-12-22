@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 
 const cors = require('cors')
-const whiteList = ['https://jhn-cde.github.io', 'http://localhost:19000', 'http://localhost:19006']
+const whiteList = ['*']
 
 const indexRouter = require('./v1/routes/index');
 const bookingsRouter = require('./v1/routes/bookingRoutes');
