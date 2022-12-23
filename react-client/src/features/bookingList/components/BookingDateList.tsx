@@ -2,12 +2,12 @@ import { Text, View } from "react-native"
 import { useAppSelector } from "../../../app/hooks";
 import { styles } from "../../../theme/theme"
 import { selectColors } from "../../../theme/themeSlice";
-import { Booking } from "../../../ts/interfaces/booking.interface";
+import { BookingInterface } from "../../../ts/interfaces/booking.interface";
 import Item from "./Item"
 
 interface Props{
   date: {month: number, year: number},
-  bookings: Booking[],
+  bookings: BookingInterface[],
   state: String | undefined,
   navigateTo: (_id: String) => void
 }

@@ -22,7 +22,7 @@ const StatusMenu = ({state, setState}: Props) => {
               ...(state==='Pending')&&customStyles.selected,
               color: colors.text
             }}
-          >Pending</Text>
+          >Pendiente</Text>
         </TouchableOpacity>
       </View>
       <View style={{...customStyles.option}}>

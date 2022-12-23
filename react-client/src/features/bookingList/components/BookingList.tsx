@@ -1,8 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Text, View } from "react-native"
-import StatusMenu from "../components/StatusMenu"
-import BookingDateList from "../components/BookingDateList"
+import StatusMenu from "./StatusMenu"
+import BookingDateList from "./BookingDateList"
 import PageContainer from "../../../components/PageContainer"
 import FloatingButton from "../../../components/FloatingButton"
 import { BottomTabScreenProps } from "../../../navigators/types"
@@ -12,16 +12,18 @@ import { selectColors } from "../../../theme/themeSlice"
 import Refresh from "../../../components/Refresh"
 import { api } from "../../../api/api"
 import { fetchBookings } from "../api/BookingsApi"
+import { useNavigation } from "@react-navigation/native"
 
 interface data{
   _id: {year: number, month: number},
   bookings: []
 }
 
-const BookingList = ({navigation, route}: BottomTabScreenProps<'Bookings'>) => {
+const BookingList = ({toShow}:{toShow: String}) => {
   const colors = useAppSelector(selectColors);
-  const [toShow, setToShow] = useState('Pending')
-  const [bookings, setBookings] = useState<data[] | undefined>(undefined)
+  const [bookings, setBookings] = useState<data[] | undefined>(undefined);
+
+  const navigation = useNavigation()
 
   useEffect(() => {
     updateBookings()
@@ -40,34 +42,18 @@ const BookingList = ({navigation, route}: BottomTabScreenProps<'Bookings'>) => {
   }
 
   return (
-    <PageContainer>
-      <Text
-        style={{
-          ...styles.title, 
-          color: colors.secondary,
-        marginVertical: 10}}
-      >
-        Reservas
-      </Text>
-      <View>
-        <StatusMenu state={toShow} setState={setToShow}/>
-      </View>
-      <View>
-        {bookings.map((list, index) => 
-          <BookingDateList 
-            key={index} 
-            date={list._id} 
-            bookings={list.bookings}
-            state={toShow}
-            navigateTo={navigateTo}
-          />
-        )}
-      </View>
-      <FloatingButton
-        navigateTo={() => navigation.navigate('AddBooking')}
-        iconName='add-outline'
-      />
-    </PageContainer>
+    <View>
+      {bookings.map((list, index) => 
+        <BookingDateList 
+          key={index} 
+          date={list._id} 
+          bookings={list.bookings}
+          state={toShow}
+          navigateTo={navigateTo}
+        />
+      )}
+    </View>
+      
   )
 }
 
