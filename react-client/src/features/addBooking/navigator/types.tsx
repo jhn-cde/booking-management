@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 export type AddBookingParamList = {
   Contact: undefined,
   Tours: undefined,
-  AddBooking: undefined
+  Main: undefined
 };
 
 export type AddBookingScreenProps<T extends keyof AddBookingParamList> =

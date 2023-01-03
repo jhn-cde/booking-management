@@ -29,7 +29,7 @@ const AddBookingNavigator = () => {
       }}
     >
       <Stack.Screen
-        name='AddBooking' 
+        name='Main' 
         component={AddBooking}
         options={{title: 'Agregar reserva'}}
       />
