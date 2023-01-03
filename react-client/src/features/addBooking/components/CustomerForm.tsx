@@ -4,13 +4,13 @@ import Icon from '@expo/vector-icons/Ionicons';
 import { useSelector } from 'react-redux'
 import CustomInput from '../../../components/CustomInput'
 import FormItemContainer from '../../../components/FormItemContainer'
-import MyPicker from '../../../components/MyPicker'
 import useForm from '../../../hooks/useForm'
 import { styles } from '../../../theme/theme'
 import { selectColors } from '../../../theme/themeSlice'
 import data from '../../../assets/countries.json'
 import { CustomerInterface } from '../../../ts/interfaces/customer.interface'
 import CustomDateTimePicker from '../../../components/CustomDateTimePicker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 interface Props{
   onSubmit: (customer: CustomerInterface) => void,
@@ -18,6 +18,9 @@ interface Props{
 };
 
 const CustomerForm = ({onSubmit, simple=false}: Props) => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState(data.countries.map(option => {return {label: option, value: option}}))
   const colors = useSelector(selectColors);
   const [showAll, setShowAll] = useState(false);
   const [customer, handleChange] = useForm({
@@ -30,12 +33,9 @@ const CustomerForm = ({onSubmit, simple=false}: Props) => {
     userId:''
   });
 
-  const countries = data.countries;
   return (
     <>
-      <ScrollView 
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps = 'always'
+      <ScrollView
       >
         <FormItemContainer
           name={'Nombres*'}
@@ -85,58 +85,72 @@ const CustomerForm = ({onSubmit, simple=false}: Props) => {
         </FormItemContainer>}
 
         {showAll&&
-        <>
-          <FormItemContainer
-            name={'Pais'}
-            iconName={'map'}
-          >
-            <MyPicker
-              options={countries} 
-              selectedValue={customer.nationality}
-              setSelectedValue={(selected) => handleChange({k:'nationality', v:selected})}
+        <FormItemContainer
+          name={'Fecha de nacimiento'}
+          iconName={'calendar'}
+        >
+          <CustomDateTimePicker
+            date={customer.birthdate}
+            setDate={(newDate) => handleChange({k:'birthdate', v:newDate})}
+          />
+        </FormItemContainer>
+        }
+      </ScrollView>
+        {showAll
+          &&
+          <>
+            <Text style={{marginTop: 15, margin: 5}}>Pais</Text>
+            <DropDownPicker
+              stickyHeader={true}
+              style={{
+                width:'100%', 
+                backgroundColor: colors.border,
+                padding: 10,
+                borderRadius: 10,
+              }}
+              searchable
+              theme='DARK'
+              language="ES"
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              mode="BADGE"
             />
-          </FormItemContainer>
-
-          <FormItemContainer
-            name={'Fecha de nacimiento'}
-            iconName={'calendar'}
-          >
-            <CustomDateTimePicker
-              date={customer.birthdate}
-              setDate={(newDate) => handleChange({k:'birthdate', v:newDate})}
-            />
-          </FormItemContainer>
-        </>
-        }<TouchableOpacity
-            style={{
-              justifyContent: 'flex-end',
-              alignItems: 'flex-end',
-              paddingVertical: 5
-            }}
-            onPress={()=>setShowAll(!showAll)}
-          >
-            {showAll
-            ?<Text style={{color: colors.text}}>
-              <Icon
-                name={'caret-up-outline'} 
-                style={{
-                  ...styles.input, 
-                  borderBottomWidth: 0
-                }}
-                size={30}
-              /> Ver menos
-            </Text>
-            :<Text style={{color: colors.text}}>
-              <Icon
-                name={'caret-down-outline'} 
-                style={{
-                  ...styles.input, 
-                  borderBottomWidth: 0
-                }}
-                size={30}
-              /> Ver más
-            </Text>}
-          </TouchableOpacity>
+          </>
+        }
+        <TouchableOpacity
+          style={{
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+            paddingVertical: 5
+          }}
+          onPress={()=>setShowAll(!showAll)}
+        >
+          {showAll
+          ?<Text style={{color: colors.text}}>
+            <Icon
+              name={'caret-up-outline'} 
+              style={{
+                ...styles.input, 
+                borderBottomWidth: 0
+              }}
+              size={30}
+            /> Ver menos
+          </Text>
+          :<Text style={{color: colors.text}}>
+            <Icon
+              name={'caret-down-outline'} 
+              style={{
+                ...styles.input, 
+                borderBottomWidth: 0
+              }}
+              size={30}
+            /> Ver más
+          </Text>}
+        </TouchableOpacity>
         <View 
           style={{
             flexDirection:'column', justifyContent:'center', 
@@ -162,7 +176,6 @@ const CustomerForm = ({onSubmit, simple=false}: Props) => {
             </Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
     </>
   )
 }
