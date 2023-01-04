@@ -34,8 +34,9 @@ class Controller {
 
   async insert( req, res, next ) {
     const { body } = req;
+    
     try {
-      const response = await this.service.insert( body );
+      const response = await this.service.insert( {...body, userId: "638a213911ff79bcc8c3a4db"} );
 
       return res.status(201).send(response);
     } catch ( e ) {
