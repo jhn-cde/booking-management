@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { selectColors } from '../../../theme/themeSlice';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { fetchTours } from '../api/ToursApi';
+import { AddBooking as addB } from '../api/BookingAPi';
 
 export interface toursI{
   _id: String,
@@ -44,12 +45,18 @@ function AddBooking() {
     fetchTours(setTours)
   }
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const bookingInfo = {
-      ...customer,
-      tourId: tour
+      contact: {name: customer.name, phone: customer.phone},
+      address: customer.direction,
+      state: 'Pending',
+      startdate: customer.startdate,
+      extra: customer.extra,
+      ntravelers: customer.ntravelers,
+      tours:[{name: '', _id: tour}]
     }
-    console.log(bookingInfo)
+    
+    const b_added = await addB(bookingInfo)
   }
 
   return (
