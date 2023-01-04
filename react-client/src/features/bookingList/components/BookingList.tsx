@@ -27,7 +27,7 @@ const BookingList = ({toShow}:{toShow: String}) => {
 
   useEffect(() => {
     updateBookings()
-  }, [])
+  }, [bookings])
 
   const updateBookings = () => {
     fetchBookings(setBookings)
