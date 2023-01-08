@@ -1,0 +1,23 @@
+#---------- users
+### get
+GET http://localhost:3000/api/customers
+### post 638a365612789b37808112f3
+POST http://localhost:3000/api/customers
+Content-Type: application/json
+
+{
+  "name": "Johan",
+  "ndoc": "70408884",
+  "userId": "638a213911ff79bcc8c3a4db"
+}
+### update
+POST http://localhost:3000/api/customers/638a365612789b37808112f3
+Content-Type: application/json
+
+{
+  "name": "Johan customer"
+}
+
+### delete
+DELETE http://localhost:3000/api/customers/638a36b212789b37808112f7
+

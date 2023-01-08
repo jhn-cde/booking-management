@@ -1,0 +1,31 @@
+#---------- users
+### get
+GET http://localhost:3000/api/bookings
+### post
+POST http://localhost:3000/api/bookings
+Content-Type: application/json
+
+{
+  "contact":{"name": "Johan Customer", "_id": "638a365612789b37808112f3"},
+  "price": 100,
+  "outstanding": 0,
+  "startdate": "12/24/2022",
+  "ntravelers": 1,
+  "travelers": ["638a365612789b37808112f3"],
+  "tours": [
+    { "name": "Salkantay",
+    "_id":"6397f7f7b743f1cb0857a410"}
+  ],
+  "userId": "638a213911ff79bcc8c3a4db"
+}
+### update
+POST http://localhost:3000/api/bookings/638a3a41b3e17f565ca3ce0b
+Content-Type: application/json
+
+{
+  "price": 110
+}
+
+### delete
+DELETE http://localhost:3000/api/bookings/6392150c522f30fbdffbb232
+

@@ -1,0 +1,23 @@
+#---------- users
+### get
+GET http://localhost:3000/api/tours
+### post
+POST http://localhost:3000/api/tours
+Content-Type: application/json
+
+{
+  "name": "Salkantay",
+  "ndays": 5,
+  "userId": "638a213911ff79bcc8c3a4db"
+}
+### update
+POST http://localhost:3000/api/tours/638a3e59f5e3f16d4c91782d
+Content-Type: application/json
+
+{
+  "price": 250
+}
+
+### delete
+DELETE http://localhost:3000/api/tours/638a37e012789b37808112ff
+
