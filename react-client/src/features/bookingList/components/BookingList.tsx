@@ -1,16 +1,7 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
-import { Text, View } from "react-native"
-import StatusMenu from "./StatusMenu"
+import { View } from "react-native"
 import BookingDateList from "./BookingDateList"
-import PageContainer from "../../../components/PageContainer"
-import FloatingButton from "../../../components/FloatingButton"
-import { BottomTabScreenProps } from "../../../navigators/types"
-import { styles } from '../../../theme/theme'
-import { useAppSelector } from "../../../app/hooks"
-import { selectColors } from "../../../theme/themeSlice"
 import Refresh from "../../../components/Refresh"
-import { api } from "../../../api/api"
 import { fetchBookings } from "../api/BookingsApi"
 import { useNavigation } from "@react-navigation/native"
 
@@ -20,14 +11,13 @@ interface data{
 }
 
 const BookingList = ({toShow}:{toShow: String}) => {
-  const colors = useAppSelector(selectColors);
   const [bookings, setBookings] = useState<data[] | undefined>(undefined);
 
   const navigation = useNavigation()
 
   useEffect(() => {
     updateBookings()
-  }, [bookings])
+  }, [])
 
   const updateBookings = () => {
     fetchBookings(setBookings)
