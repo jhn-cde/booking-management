@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { View } from "react-native"
 import BookingDateList from "./BookingDateList"
 import Refresh from "../../../components/Refresh"
 import { fetchBookings } from "../api/BookingsApi"
-import { useNavigation } from "@react-navigation/native"
+import { useFocusEffect, useNavigation } from "@react-navigation/native"
 
 interface data{
   _id: {year: number, month: number},
@@ -12,12 +12,12 @@ interface data{
 
 const BookingList = ({toShow}:{toShow: String}) => {
   const [bookings, setBookings] = useState<data[] | undefined>(undefined);
-
+  
   const navigation = useNavigation()
 
-  useEffect(() => {
+  useFocusEffect(React.useCallback(() => {
     updateBookings()
-  }, [])
+  }, []))
 
   const updateBookings = () => {
     fetchBookings(setBookings)
