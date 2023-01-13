@@ -4,10 +4,10 @@ import { useAppSelector } from '../../../app/hooks'
 import data from '../../../assets/countries.json'
 
 import useForm from '../../../hooks/useForm'
-import { selectColors } from '../../../theme/themeSlice'
+import { selectColors } from '../../../theme'
 import { BookingInterface } from '../../../ts/interfaces/booking.interface'
 
-const BookingForm = ({initialState}: {initialState: BookingInterface}) => {
+export const BookingForm = ({initialState}: {initialState: BookingInterface}) => {
   const [booking, handleInputChange] = useForm(initialState)
   const colors = useAppSelector(selectColors);
   const countries = data.countries
@@ -32,5 +32,3 @@ const customStyles = StyleSheet.create({
     borderRadius: 10
   }
 })
-
-export default BookingForm

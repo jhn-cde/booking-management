@@ -1,14 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useAppSelector } from "../../../app/hooks"
-import KebabBtn from "../../../components/KebabBtn"
-import { selectColors } from "../../../theme/themeSlice"
+import { KebabBtn } from "../../../components"
+import { selectColors } from "../../../theme"
 import { BookingInterface } from "../../../ts/interfaces/booking.interface"
-import ItemInfo from "./ItemInfo"
+import { ItemInfo } from "./ItemInfo"
 
 interface Props extends BookingInterface{
   navigateTo: (_id: String) => void
 }
-const Item = ({_id, startdate, tours, contact, ntravelers, navigateTo}: Props) => {
+export const Item = ({_id, startdate, tours, contact, ntravelers, navigateTo}: Props) => {
   const colors = useAppSelector(selectColors);
 
   return (
@@ -55,5 +55,3 @@ const customStyles = StyleSheet.create({
     fontSize: 20,
   }
 })
-
-export default Item

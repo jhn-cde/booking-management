@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { useAppSelector } from '../../../app/hooks';
-import FloatingButton from '../../../components/FloatingButton';
-import PageContainer from '../../../components/PageContainer';
+import { FloatingButton, PageContainer } from '../../../components';
 import { BottomTabScreenProps } from '../../../navigators/types';
-import { styles } from '../../../theme/theme'
-import { selectColors } from '../../../theme/themeSlice';
-import BookingList from '../components/BookingList';
-import StatusMenu from '../components/StatusMenu';
+import { styles, selectColors } from '../../../theme';
+import { BookingList, StatusMenu } from '../components';
 
-const Bookings = ({navigation}: BottomTabScreenProps<'Bookings'>) => {
+export const Bookings = ({navigation}: BottomTabScreenProps<'Bookings'>) => {
   const [toShow, setToShow] = useState('Pending');
   const colors = useAppSelector(selectColors);
   return (
@@ -33,5 +30,3 @@ const Bookings = ({navigation}: BottomTabScreenProps<'Bookings'>) => {
     </PageContainer>
   )
 }
-
-export default Bookings

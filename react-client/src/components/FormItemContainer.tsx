@@ -2,8 +2,7 @@ import React from 'react'
 import Icon from '@expo/vector-icons/Ionicons';
 import { StyleSheet, Text, View } from 'react-native'
 import { useSelector } from 'react-redux';
-import { selectColors } from '../theme/themeSlice';
-import { styles } from '../theme/theme';
+import { selectColors, styles } from '../theme';
 
 interface Props{
   children: React.ReactNode,
@@ -11,7 +10,7 @@ interface Props{
   iconName: keyof typeof Icon.glyphMap,
 };
 
-const FormItemContainer = ({children, name, iconName}:Props) => {
+export const FormItemContainer = ({children, name, iconName}:Props) => {
   const colors = useSelector(selectColors);
 
   return (
@@ -47,4 +46,3 @@ const customStyles = StyleSheet.create({
     width: '100%'
   }
 })
-export default FormItemContainer

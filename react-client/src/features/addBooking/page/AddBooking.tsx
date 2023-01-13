@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Icon from '@expo/vector-icons/Ionicons';
-import CustomDateTimePicker from '../../../components/CustomDateTimePicker';
-import CustomInput from '../../../components/CustomInput';
-import FormItemContainer from '../../../components/FormItemContainer'
+import { CustomDateTimePicker, CustomInput, FormItemContainer } from '../../../components';
 import useForm from '../../../hooks/useForm';
-import { styles } from '../../../theme/theme';
-import { useSelector } from 'react-redux';
-import { selectColors } from '../../../theme/themeSlice';
+import { styles, selectColors } from '../../../theme';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { fetchTours } from '../api/ToursApi';
-import { AddBooking as addB } from '../api/BookingAPi';
+import { fetchTours, AddBooking as addB } from '../api';
 
 export interface toursI{
   _id: String,
@@ -20,7 +16,7 @@ export interface toursI{
   userId: string,
 }
 
-function AddBooking() {
+export function AddBooking() {
   const colors = useSelector(selectColors);
 
   const [open, setOpen] = useState(false);
@@ -261,5 +257,3 @@ function AddBooking() {
     </>
   )
 }
-
-export default AddBooking

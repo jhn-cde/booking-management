@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { View } from "react-native"
-import BookingDateList from "./BookingDateList"
-import Refresh from "../../../components/Refresh"
-import { fetchBookings } from "../api/BookingsApi"
+import { BookingDateList } from "./BookingDateList"
+import { Refresh } from "../../../components"
+import { fetchBookings } from "../api"
 import { useFocusEffect, useNavigation } from "@react-navigation/native"
 
 interface data{
@@ -10,7 +10,7 @@ interface data{
   bookings: []
 }
 
-const BookingList = ({toShow}:{toShow: String}) => {
+export const BookingList = ({toShow}:{toShow: String}) => {
   const [bookings, setBookings] = useState<data[] | undefined>(undefined);
   
   const navigation = useNavigation()
@@ -46,5 +46,3 @@ const BookingList = ({toShow}:{toShow: String}) => {
       
   )
 }
-
-export default BookingList

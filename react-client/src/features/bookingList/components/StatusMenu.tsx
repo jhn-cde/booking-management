@@ -1,14 +1,14 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useAppSelector } from '../../../app/hooks';
-import { selectColors } from '../../../theme/themeSlice';
+import { selectColors } from '../../../theme';
 
 interface Props {
   state: String,
   setState: Dispatch<SetStateAction<any>>
 }
 
-const StatusMenu = ({state, setState}: Props) => {
+export const StatusMenu = ({state, setState}: Props) => {
   const colors = useAppSelector(selectColors);
 
   return (
@@ -66,5 +66,3 @@ const customStyles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
 })
-
-export default StatusMenu

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-const Record = () => {
+export const Record = () => {
   return (
     <View>
       <Text>
@@ -10,5 +10,3 @@ const Record = () => {
     </View>
   )
 }
-
-export default Record

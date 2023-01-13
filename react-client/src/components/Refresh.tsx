@@ -1,10 +1,10 @@
 import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import Icon from '@expo/vector-icons/Ionicons';
-import { selectColors } from '../theme/themeSlice';
+import { selectColors } from '../theme';
 import { useAppSelector } from '../app/hooks';
 
-const Refresh = ({refreshFun}:{refreshFun: () => void}) => {
+export const Refresh = ({refreshFun}:{refreshFun: () => void}) => {
   const colors = useAppSelector(selectColors);
   return (
     <View
@@ -32,5 +32,3 @@ const Refresh = ({refreshFun}:{refreshFun: () => void}) => {
     </View>
   )
 }
-
-export default Refresh

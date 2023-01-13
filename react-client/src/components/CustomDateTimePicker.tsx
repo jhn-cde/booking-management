@@ -1,14 +1,13 @@
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { styles } from '../theme/theme';
 
 interface Props{
   date: Date,
   setDate: (newDate: Date) => void
 };
 
-const CustomDateTimePicker = ({date, setDate}:Props) => {
+export const CustomDateTimePicker = ({date, setDate}:Props) => {
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState('1')
 
@@ -89,5 +88,3 @@ const customStyles = StyleSheet.create({
     color: 'green'
   }
 })
-
-export default CustomDateTimePicker

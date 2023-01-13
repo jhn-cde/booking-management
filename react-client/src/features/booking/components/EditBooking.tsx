@@ -1,11 +1,11 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { Text, View } from 'react-native'
-import Refresh from '../../../components/Refresh'
+import { Refresh } from '../../../components'
 import useForm from '../../../hooks/useForm'
 import { BookingInterface } from '../../../ts/interfaces/booking.interface'
 
-const EditBooking = ({id}: {id:String}) => {
+export const EditBooking = ({id}: {id:String}) => {
   const [booking, handleInputChange, setBooking] = useForm(undefined)
 
   useEffect(() => {
@@ -34,5 +34,3 @@ const EditBooking = ({id}: {id:String}) => {
     </View>
   )
 }
-
-export default EditBooking

@@ -1,8 +1,7 @@
 import React from 'react'
-import { styles } from '../theme/theme';
 import { useSelector } from 'react-redux';
-import { selectColors } from '../theme/themeSlice';
 import { TextInput } from 'react-native';
+import { styles, selectColors } from '../theme';
 
 interface Props{
   value: string,
@@ -12,7 +11,7 @@ interface Props{
   keyboardtype?: 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad' | 'url'
 };
 
-const CustomInput = ({value, placeholder, pstyles, keyboardtype, handleInputChange}: Props) => {
+export const CustomInput = ({value, placeholder, pstyles, keyboardtype, handleInputChange}: Props) => {
   const colors = useSelector(selectColors);
 
   return (
@@ -26,5 +25,3 @@ const CustomInput = ({value, placeholder, pstyles, keyboardtype, handleInputChan
     />
   )
 }
-
-export default CustomInput

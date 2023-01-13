@@ -1,9 +1,9 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native"
 import Icon from '@expo/vector-icons/SimpleLineIcons';
-import { selectColors } from "../theme/themeSlice";
+import { selectColors } from "../theme";
 import { useAppSelector } from "../app/hooks";
 
-const KebabBtn = () => {
+export const KebabBtn = () => {
   const colors = useAppSelector(selectColors);
 
   return (
@@ -39,5 +39,3 @@ const customStyles = StyleSheet.create({
     alignItems: 'center',
   }
 })
-
-export default KebabBtn
