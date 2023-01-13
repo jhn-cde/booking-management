@@ -26,7 +26,7 @@ const Item = ({_id, startdate, tours, contact, ntravelers, navigateTo}: Props) =
           </Text>
           <ItemInfo
             date={startdate}
-            tours={tours} 
+            tour_id={tours[0]._id} 
           />
         </TouchableOpacity>
         <View>
