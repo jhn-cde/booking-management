@@ -6,7 +6,10 @@ import { CustomDateTimePicker, CustomInput, FormItemContainer } from '../../../c
 import useForm from '../../../hooks/useForm';
 import { styles, selectColors } from '../../../theme';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { fetchTours, AddBooking as addB } from '../api';
+import { AddBooking as addB } from '../api';
+import { getall, post } from '../../../api/api';
+import { CustomerForm } from '../components';
+import { AxiosResponse } from 'axios';
 
 export interface toursI{
   _id: String,
@@ -37,22 +40,30 @@ export function AddBooking() {
     updateTours()
   }, [])
 
-  const updateTours = () => {
-    fetchTours(setTours)
+  const updateTours = async() => {
+    const _tours = await getall('tours')
+    const data = _tours.map((_tour: any) => {return {label: _tour.name, value: _tour._id}})
+    setTours(data)
   }
 
   const onSubmit = async () => {
-    const bookingInfo = {
-      contact: {name: customer.name, phone: customer.phone},
-      address: customer.direction,
-      state: 'Pending',
-      startdate: customer.startdate,
-      extra: customer.extra,
-      ntravelers: customer.ntravelers,
-      tours:[{name: '', _id: tour}]
+    try {
+      const _contact = await post('customers', customer)
+      
+      const bookingPost = {
+        address: customer.direction,
+        contactId: _contact._id,
+        state: 'Pending',
+        startdate: customer.startdate,
+        extra: customer.extra,
+        ntravelers: customer.ntravelers,
+        tours:[{_id: tour}]
+      }
+      const _booking = await post('bookings', bookingPost)
+      console.log(`booking_ID: ${_booking._id}`)
+    } catch (error) {
+      console.log('error onSubmit', error)
     }
-    
-    const b_added = await addB(bookingInfo)
   }
 
   return (
