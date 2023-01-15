@@ -7,13 +7,12 @@ import { Item } from "./Item"
 interface Props{
   date: {month: number, year: number},
   bookings: BookingInterface[],
-  state: String | undefined,
-  navigateTo: (_id: String) => void
+  state: String | undefined
 }
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-export const BookingDateList = ({date, bookings, state, navigateTo}: Props) => {
+export const BookingDateList = ({date, bookings, state}: Props) => {
   const colors = useAppSelector(selectColors);
   
   return (
@@ -28,7 +27,7 @@ export const BookingDateList = ({date, bookings, state, navigateTo}: Props) => {
           bookings.map((booking, index) =>
             (state==='all' || state===booking.state)&&
             <View key={index} style={{marginBottom: 10}}> 
-              <Item {...booking} navigateTo={navigateTo}/>
+              <Item {...booking}/>
             </View>
           )
         }

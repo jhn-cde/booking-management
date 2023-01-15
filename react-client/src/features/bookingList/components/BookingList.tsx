@@ -3,7 +3,7 @@ import { View } from "react-native"
 import { BookingDateList } from "./BookingDateList"
 import { Refresh } from "../../../components"
 import { fetchBookings } from "../api"
-import { useFocusEffect, useNavigation } from "@react-navigation/native"
+import { useFocusEffect } from "@react-navigation/native"
 
 interface data{
   _id: {year: number, month: number},
@@ -12,8 +12,6 @@ interface data{
 
 export const BookingList = ({toShow}:{toShow: String}) => {
   const [bookings, setBookings] = useState<data[] | undefined>(undefined);
-  
-  const navigation = useNavigation()
 
   useFocusEffect(React.useCallback(() => {
     updateBookings()
@@ -21,10 +19,6 @@ export const BookingList = ({toShow}:{toShow: String}) => {
 
   const updateBookings = () => {
     fetchBookings(setBookings)
-  }
-
-  const navigateTo = (_id: String) =>{
-    navigation.navigate('Booking', {id: _id})
   }
 
   if(!bookings){
@@ -39,7 +33,6 @@ export const BookingList = ({toShow}:{toShow: String}) => {
           date={list._id} 
           bookings={list.bookings}
           state={toShow}
-          navigateTo={navigateTo}
         />
       )}
     </View>

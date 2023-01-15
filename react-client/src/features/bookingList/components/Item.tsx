@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useAppSelector } from "../../../app/hooks"
 import { KebabBtn } from "../../../components"
@@ -5,11 +6,10 @@ import { selectColors } from "../../../theme"
 import { BookingInterface } from "../../../ts/interfaces/booking.interface"
 import { ItemInfo } from "./ItemInfo"
 
-interface Props extends BookingInterface{
-  navigateTo: (_id: String) => void
-}
-export const Item = ({_id, startdate, tours, contact, ntravelers, navigateTo}: Props) => {
+export const Item = ({_id, startdate, tours, contact, ntravelers}: BookingInterface) => {
   const colors = useAppSelector(selectColors);
+
+  const navigation = useNavigation()
 
   return (
     <View 
@@ -18,7 +18,7 @@ export const Item = ({_id, startdate, tours, contact, ntravelers, navigateTo}: P
       <View style={customStyles.container}>
         <TouchableOpacity
           style={{marginLeft: 5, width: '85%'}}
-          onPress={() => navigateTo(_id)}
+          onPress={() => navigation.navigate('Booking', {id: _id})}
           activeOpacity={0.5}
         >
           <Text style={{...customStyles.title, marginBottom: 3, color: colors.secondary}}>
