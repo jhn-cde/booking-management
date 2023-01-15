@@ -4,7 +4,7 @@ import { TourInterface } from "../../../ts/interfaces/tour.interface"
 import { useAppSelector } from "../../../app/hooks"
 import { selectColors } from "../../../theme"
 import { useEffect, useState } from "react"
-import { getTour } from "../api/ToursApi"
+import { get } from "../../../api/api"
 
 interface Props {
   date: Date,
@@ -18,8 +18,13 @@ export const ItemInfo = ({date, tour_id}: Props) => {
   const [tour, setTour] = useState<TourInterface | undefined>(undefined)
 
   useEffect(()=>{
-    getTour(tour_id, setTour)
+    getTour()
   }, [])
+
+  const getTour = async () => {
+    const _tour = await get('tours', tour_id)
+    setTour(_tour)
+  }
 
   return (
     <View style={customStyles.container}>
