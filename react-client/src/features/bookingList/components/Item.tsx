@@ -5,8 +5,7 @@ import { get } from "../../../api/api"
 import { useAppSelector } from "../../../app/hooks"
 import { KebabBtn } from "../../../components"
 import { selectColors } from "../../../theme"
-import { BookingInterface } from "../../../ts/interfaces/booking.interface"
-import { CustomerInterface } from "../../../ts/interfaces/customer.interface"
+import { BookingInterface, CustomerInterface } from "../../../ts/interfaces"
 import { ItemInfo } from "./ItemInfo"
 
 export const Item = ({_id, startdate, tours, contactId, ntravelers}: BookingInterface) => {

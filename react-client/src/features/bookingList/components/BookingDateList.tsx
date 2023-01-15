@@ -1,7 +1,7 @@
 import { Text, View } from "react-native"
 import { useAppSelector } from "../../../app/hooks";
 import { styles, selectColors } from "../../../theme";
-import { BookingInterface } from "../../../ts/interfaces/booking.interface";
+import { BookingInterface } from "../../../ts/interfaces";
 import { Item } from "./Item"
 
 interface Props{

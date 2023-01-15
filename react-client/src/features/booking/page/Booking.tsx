@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Text } from 'react-native';
 import { RootStackScreenProps } from '../../../navigators/types';
 import { PageContainer, Refresh } from '../../../components';
-import { BookingInterface } from '../../../ts/interfaces/booking.interface';
-import { CustomerInterface } from '../../../ts/interfaces/customer.interface';
+import { BookingInterface, CustomerInterface } from '../../../ts/interfaces';
 import { get } from '../../../api/api';
 
 export const Booking = ({route, navigation}: RootStackScreenProps<'Booking'>) => {

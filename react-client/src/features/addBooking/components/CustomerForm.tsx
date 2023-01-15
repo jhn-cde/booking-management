@@ -6,7 +6,7 @@ import { CustomInput, FormItemContainer, CustomDateTimePicker} from '../../../co
 import useForm from '../../../hooks/useForm'
 import { styles, selectColors } from '../../../theme'
 import data from '../../../assets/countries.json'
-import { CustomerInterface } from '../../../ts/interfaces/customer.interface'
+import { CustomerInterface } from '../../../ts/interfaces'
 import DropDownPicker from 'react-native-dropdown-picker';
 
 interface Props{

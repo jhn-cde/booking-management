@@ -5,7 +5,7 @@ import data from '../../../assets/countries.json'
 
 import useForm from '../../../hooks/useForm'
 import { selectColors } from '../../../theme'
-import { BookingInterface } from '../../../ts/interfaces/booking.interface'
+import { BookingInterface } from '../../../ts/interfaces'
 
 export const BookingForm = ({initialState}: {initialState: BookingInterface}) => {
   const [booking, handleInputChange] = useForm(initialState)

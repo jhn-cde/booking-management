@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Text, View } from 'react-native'
 import { Refresh } from '../../../components'
 import useForm from '../../../hooks/useForm'
-import { BookingInterface } from '../../../ts/interfaces/booking.interface'
+import { BookingInterface } from '../../../ts/interfaces'
 
 export const EditBooking = ({id}: {id:String}) => {
   const [booking, handleInputChange, setBooking] = useForm(undefined)

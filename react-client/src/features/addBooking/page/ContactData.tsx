@@ -2,7 +2,7 @@ import React from 'react'
 import { PageContainer } from '../../../components'
 import { AddBookingScreenProps } from '../navigator/types'
 import { CustomerForm } from '../components'
-import { CustomerInterface } from '../../../ts/interfaces/customer.interface'
+import { CustomerInterface } from '../../../ts/interfaces'
 
 export const ContactData = ({navigation}: AddBookingScreenProps<'Contact'>) => {
   const onSubmit = (customer: CustomerInterface) => {

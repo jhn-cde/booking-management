@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native"
 import { format } from 'date-fns'
-import { TourInterface } from "../../../ts/interfaces/tour.interface"
+import { TourInterface } from "../../../ts/interfaces"
 import { useAppSelector } from "../../../app/hooks"
 import { selectColors } from "../../../theme"
 import { useEffect, useState } from "react"
