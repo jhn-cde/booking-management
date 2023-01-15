@@ -6,10 +6,7 @@ import { CustomDateTimePicker, CustomInput, FormItemContainer } from '../../../c
 import useForm from '../../../hooks/useForm';
 import { styles, selectColors } from '../../../theme';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { AddBooking as addB } from '../api';
 import { getall, post } from '../../../api/api';
-import { CustomerForm } from '../components';
-import { AxiosResponse } from 'axios';
 
 export interface toursI{
   _id: String,
