@@ -7,6 +7,7 @@ import useForm from '../../../hooks/useForm';
 import { styles, selectColors } from '../../../theme';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { getall, post } from '../../../api/api';
+import { useNavigation } from '@react-navigation/native';
 
 export interface toursI{
   _id: String,
@@ -18,6 +19,7 @@ export interface toursI{
 
 export function AddBooking() {
   const colors = useSelector(selectColors);
+  const navigation = useNavigation()
 
   const [open, setOpen] = useState(false);
   const [tour, setTour] = useState(null);
@@ -58,6 +60,8 @@ export function AddBooking() {
       }
       const _booking = await post('bookings', bookingPost)
       console.log(`booking_ID: ${_booking._id}`)
+
+      navigation.navigate('Tabs')
     } catch (error) {
       console.log('error onSubmit', error)
     }
