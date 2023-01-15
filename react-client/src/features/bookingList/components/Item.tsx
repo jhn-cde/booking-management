@@ -1,16 +1,28 @@
 import { useNavigation } from "@react-navigation/native"
+import { useEffect, useState } from "react"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { get } from "../../../api/api"
 import { useAppSelector } from "../../../app/hooks"
 import { KebabBtn } from "../../../components"
 import { selectColors } from "../../../theme"
 import { BookingInterface } from "../../../ts/interfaces/booking.interface"
+import { CustomerInterface } from "../../../ts/interfaces/customer.interface"
 import { ItemInfo } from "./ItemInfo"
 
-export const Item = ({_id, startdate, tours, contact, ntravelers}: BookingInterface) => {
+export const Item = ({_id, startdate, tours, contactId, ntravelers}: BookingInterface) => {
   const colors = useAppSelector(selectColors);
-
   const navigation = useNavigation()
+  const [contact, setContact] = useState<CustomerInterface | undefined>(undefined)
 
+  useEffect(()=>{
+    getContact()
+  }, [])
+
+  const getContact = async () => {
+    const _contact = await get('customers', contactId)
+    setContact(_contact)
+  }
+  
   return (
     <View 
       style={{alignItems: 'center', marginBottom: 10}}
@@ -22,7 +34,7 @@ export const Item = ({_id, startdate, tours, contact, ntravelers}: BookingInterf
           activeOpacity={0.5}
         >
           <Text style={{...customStyles.title, marginBottom: 3, color: colors.secondary}}>
-            {contact.name} - {String(ntravelers)}p
+            {contact&&contact.name} - {String(ntravelers)}p
           </Text>
           <ItemInfo
             date={startdate}
