@@ -4,7 +4,7 @@ import Icon from '@expo/vector-icons/Ionicons';
 import { selectColors } from '../theme';
 import { useAppSelector } from '../app/hooks';
 
-export const Refresh = ({refreshFun}:{refreshFun: () => void}) => {
+export const Refresh = ({refreshFun}:{refreshFun: any}) => {
   const colors = useAppSelector(selectColors);
   return (
     <View
