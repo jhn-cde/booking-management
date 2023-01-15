@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { View } from "react-native"
 import { BookingDateList } from "./BookingDateList"
 import { Refresh } from "../../../components"
-import { fetchBookings } from "../api"
 import { useFocusEffect } from "@react-navigation/native"
+import { get } from "../../../api/api"
 
 interface data{
   _id: {year: number, month: number},
@@ -17,8 +17,9 @@ export const BookingList = ({toShow}:{toShow: String}) => {
     updateBookings()
   }, []))
 
-  const updateBookings = () => {
-    fetchBookings(setBookings)
+  const updateBookings = async () => {
+    const _bookings = await get('bookings', 'groupdate')
+    setBookings(_bookings)
   }
 
   if(!bookings){
