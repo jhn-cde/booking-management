@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { AppbarContent } from 'react-native-paper/lib/typescript/components/Appbar/AppbarContent';
 
 export const api = axios.create({
   baseURL: "http://192.168.1.37:3000/api/",
