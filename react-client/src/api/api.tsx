@@ -8,3 +8,19 @@ export const api = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+export const get = (
+  route: String,
+  _id: String,
+  f: any
+) => {
+api.get<any>(`/${route}/${_id}`)
+.then(response => {
+  if(response.status === 200){
+    f(response.data)
+  }
+})
+.catch(err => {
+  console.log('Error get!!', err)
+})
+}
