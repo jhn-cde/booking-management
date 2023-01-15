@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Text } from 'react-native';
 import { RootStackScreenProps } from '../../../navigators/types';
-import { PageContainer } from '../../../components';
-import { EditBooking } from '../components';
+import { PageContainer, Refresh } from '../../../components';
+import { getBooking, getTour } from '../../../api'
+import { BookingInterface } from '../../../ts/interfaces/booking.interface';
 
 export const Booking = ({route, navigation}: RootStackScreenProps<'Booking'>) => {
-  const [edit, setEdit] = useState(false)
+  const [booking, setBooking] = useState<BookingInterface | undefined>(undefined)
+
+  useEffect(()=>{
+    getBooking(route.params.id, setBooking)
+  }, [])
+  
+  if(!booking) return(
+    <Refresh refreshFun={getTour(route.params.id, setBooking)}/>
+  )
+
   return (
     <PageContainer>
-      { edit&&
-        <EditBooking id={route.params.id}/>
-      }
+      <Text>{booking.contact.name}</Text>
     </PageContainer>
   )
 }
