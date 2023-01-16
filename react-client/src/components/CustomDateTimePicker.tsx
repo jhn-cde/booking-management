@@ -1,5 +1,5 @@
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 interface Props{
@@ -10,6 +10,13 @@ interface Props{
 export const CustomDateTimePicker = ({date, setDate}:Props) => {
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState('1')
+
+  useEffect(() => {
+    const _today = new Date()
+    if(_today.getDate() === new Date(date).getDate()){ setSelected('1')}
+    else if(_today.getDate()+1 === new Date(date).getDate()){ setSelected('2')}
+    else { setSelected('3')}
+  },[])
 
   const onChange = (event: DateTimePickerEvent, date: Date | undefined) => {
     if(date){
