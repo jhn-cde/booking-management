@@ -9,6 +9,7 @@ import { DateWithIcon, DropDownWithIcon, TextInputWithIcon } from '../components
 import { selectColors, styles } from '../../../theme';
 import { useSelector } from 'react-redux';
 import { SpinIcon } from '../../../components';
+import { TourState } from '../components/TourState';
 
 export const Booking = ({route, navigation}: RootStackScreenProps<'Booking'>) => {
   const colors = useSelector(selectColors);
@@ -46,6 +47,21 @@ export const Booking = ({route, navigation}: RootStackScreenProps<'Booking'>) =>
       const _booking = await update('bookings', booking._id, booking)
       const _contact = await update('customers', contact._id, contact)
       fillData()
+      setEditing(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const changeState = async (newState: String) => {
+    try {
+      setEditing(true)
+      const _booking = await update('bookings', booking._id, {state: newState})
+
+      if(_booking.data.state === newState){
+        handleBookingChange({k: 'state', v: newState})
+      }
+
       setEditing(false)
     } catch (error) {
       console.log(error)
@@ -137,6 +153,23 @@ export const Booking = ({route, navigation}: RootStackScreenProps<'Booking'>) =>
             handleBookingChange({k: 'extra', v: _text})}
           }
         />
+      </View>
+      
+      <View style={customStyles.container}>
+        <Text style={{
+          ...customStyles.subTitle, 
+          ...styles.subtitle, 
+          color: colors.primary,
+          marginBottom: 15
+        }}>
+          Estado del tour
+        </Text>
+        <View style={{...customStyles.container, width: '80%'}}>
+          <TourState
+            state={booking.state}
+            setState={changeState} 
+          />
+        </View>
       </View>
       {edited && 
       <View style={{...customStyles.container, marginTop: 10}}>
