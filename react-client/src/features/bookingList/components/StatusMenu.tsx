@@ -27,14 +27,14 @@ export const StatusMenu = ({state, setState}: Props) => {
       </View>
       <View style={{...customStyles.option}}>
         <TouchableOpacity
-          onPress={() => setState('Cancelled')}
+          onPress={() => setState('Completed')}
         >
           <Text
             style={{
-              ...(state==='Cancelled')&&customStyles.selected,
+              ...(state==='Completed')&&customStyles.selected,
             color: colors.text
           }}
-          >Cancelado</Text>
+          >Completado</Text>
         </TouchableOpacity>
       </View>
       <View style={{...customStyles.option}}>
