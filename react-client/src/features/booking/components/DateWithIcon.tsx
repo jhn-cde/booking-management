@@ -19,7 +19,7 @@ export const DateWithIcon = ({name, date, setDate} : Props) => {
       {isEditing ? (
         <View style={styles.textInput}>
           <CustomDateTimePicker
-            date={date}
+            date={new Date(date)}
             setDate={setDate} 
           />
         </View>
