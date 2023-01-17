@@ -41,7 +41,11 @@ export const Item = ({_id, startdate, tours, contactId, ntravelers}: BookingInte
           />
         </TouchableOpacity>
         <View>
-          <KebabBtn />
+          <KebabBtn 
+            items={
+              [{onPress: ()=>navigation.navigate('Booking', {id: _id}), name: 'Editar'}]
+            }
+          />
         </View>
       </View>
       <View style={customStyles.line}></View>

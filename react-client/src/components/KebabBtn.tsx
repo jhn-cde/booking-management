@@ -5,7 +5,11 @@ import { useAppSelector } from "../app/hooks";
 import { useState } from "react";
 import { Menu, MenuItem } from 'react-native-material-menu';
 
-export const KebabBtn = () => {
+interface Props{
+  items: {onPress: () => void, name: string}[]
+}
+
+export const KebabBtn = ({items}: Props) => {
   const [visible, setVisible] = useState(false);
   const colors = useAppSelector(selectColors);
 
@@ -21,16 +25,22 @@ export const KebabBtn = () => {
         visible={visible}
         onRequestClose={hideMenu}
       >
-        <MenuItem onPress={hideMenu}>Editar</MenuItem>
-        <MenuItem onPress={hideMenu}>Atendido</MenuItem>
-        <MenuItem onPress={hideMenu}>Eliminar</MenuItem>
+        {items.map(item => 
+          <MenuItem 
+            onPress={() => {
+              hideMenu();
+              item.onPress();
+            }} 
+            key={item.name}
+          >{item.name}</MenuItem>
+        )}
       </Menu>
 
       <TouchableOpacity
         style={{
             ...customStyles.boton,
           }}
-        onPress={() => showMenu()}
+        onPress={showMenu}
       >
         {(
         <Icon
