@@ -1,25 +1,12 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { FlatList } from "react-native"
 import { BookingDateList } from "./BookingDateList"
-import { Refresh } from "../../../components"
-import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { selectBookingsList, updateBookingsList } from "../slice/bookingListSlice"
+import { useAppSelector } from "../../../app/hooks"
+import { selectBookingsList } from "../slice/bookingListSlice"
 
 export const BookingList = ({toShow}:{toShow: String}) => {
   const bookings = useAppSelector(selectBookingsList)
-  const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    updateBookings()
-  },[])
-
-  const updateBookings = async () => {
-    dispatch(updateBookingsList())
-  }
-
-  if(!bookings){
-    return (<Refresh refreshFun={updateBookings}/>)
-  }
   return (
     <FlatList
       data={bookings}
@@ -30,7 +17,6 @@ export const BookingList = ({toShow}:{toShow: String}) => {
           bookings={item.bookings}
           state={toShow}
         />}
-    />
-      
+    />  
   )
 }

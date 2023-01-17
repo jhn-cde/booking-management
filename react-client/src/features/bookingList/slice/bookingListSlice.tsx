@@ -1,50 +1,61 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { get } from '../../../api/api'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { api } from '../../../api/api'
 import { RootState } from '../../../app/store'
 import { BookingInterface } from '../../../ts/interfaces'
 
 // Define a type for the slice state
-
 export interface BookingDateListInterface{
   _id: {year: number, month: number} ,
   bookings: BookingInterface[]
 }
 
 interface BookingListState {
-  bookings: BookingDateListInterface[]
+  bookings: BookingDateListInterface[],
+  status: 'idle' | 'loading' | 'succeeded'  | 'failed',
+  error: any | null
 }
 
 // Define the initial state using that type
 const initialState: BookingListState = {
-  bookings: []
+  bookings: [],
+  error: null,
+  status: 'idle',
 }
+
+export const fetchBookingsList = createAsyncThunk('bookings/fetchBookingsList', async () => {
+  const response = await api.get<any>(`/bookings/groupdate`);
+  return response.data
+})
 
 export const bookingListSlice = createSlice({
   name: 'bookings',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    fillBookingsDateList: (state, action) => {
-      state.bookings = action.payload.bookings
-    }
   },
+  extraReducers(builder){
+    builder
+      .addCase(fetchBookingsList.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchBookingsList.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.bookings = action.payload
+      })
+      .addCase(fetchBookingsList.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+  }
 })
-
-export const { fillBookingsDateList } = bookingListSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectBookingsList = (state: RootState) => state.bookingsDateList.bookings
+export const selectBookingById = (state: RootState, bookingId: String) => {
+  const all_bookings = 
+  state.bookingsDateList.bookings.map(bookings => [...bookings.bookings])
+  console.log(all_bookings)
+  return 'Hii'
+}
 
 export default bookingListSlice.reducer
-
-export const updateBookingsList = () => {
-  return async (dispatch: <AnyAction>(action: AnyAction) => AnyAction) => {
-    try {
-      const _bookings = await get('bookings', 'groupdate');
-      dispatch(fillBookingsDateList({bookings: _bookings}));
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}

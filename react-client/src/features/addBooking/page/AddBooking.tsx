@@ -8,6 +8,8 @@ import { styles, selectColors } from '../../../theme';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { getall, post } from '../../../api/api';
 import { useNavigation } from '@react-navigation/native';
+import { useAppDispatch } from '../../../app/hooks';
+import { fetchBookingsList } from '../../bookingList/slice/bookingListSlice';
 
 export interface toursI{
   _id: String,
@@ -19,11 +21,12 @@ export interface toursI{
 
 export function AddBooking() {
   const colors = useSelector(selectColors);
-  const navigation = useNavigation()
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation();
 
   const [open, setOpen] = useState(false);
   const [tour, setTour] = useState(null);
-  const [tours, setTours] = useState<any>([])
+  const [tours, setTours] = useState<any>([]);
 
   const [customer, handleChange] = useForm({
     name:'',
@@ -36,18 +39,18 @@ export function AddBooking() {
   });
 
   useEffect(() => {
-    updateTours()
+    updateTours();
   }, [])
 
   const updateTours = async() => {
-    const _tours = await getall('tours')
-    const data = _tours.map((_tour: any) => {return {label: _tour.name, value: _tour._id}})
-    setTours(data)
+    const _tours = await getall('tours');
+    const data = _tours.map((_tour: any) => {return {label: _tour.name, value: _tour._id}});
+    setTours(data);
   }
 
   const onSubmit = async () => {
     try {
-      const _contact = await post('customers', customer)
+      const _contact = await post('customers', customer);
       
       const bookingPost = {
         address: customer.direction,
@@ -58,12 +61,14 @@ export function AddBooking() {
         ntravelers: customer.ntravelers,
         tours:[{_id: tour}]
       }
-      const _booking = await post('bookings', bookingPost)
-      console.log(`booking_ID: ${_booking._id}`)
+      const _booking = await post('bookings', bookingPost);
+      console.log(`booking_ID: ${_booking._id}`);
 
-      navigation.navigate('Tabs')
+      dispatch(fetchBookingsList());
+
+      navigation.navigate('Tabs');
     } catch (error) {
-      console.log('error onSubmit', error)
+      console.log('error onSubmit', error);
     }
   }
 
