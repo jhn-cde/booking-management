@@ -1,26 +1,20 @@
-import React, { useState } from "react"
-import { FlatList, ScrollView, View } from "react-native"
+import React, { useEffect } from "react"
+import { FlatList } from "react-native"
 import { BookingDateList } from "./BookingDateList"
 import { Refresh } from "../../../components"
-import { useFocusEffect } from "@react-navigation/native"
-import { get } from "../../../api/api"
-import { listenerCancelled } from "@reduxjs/toolkit/dist/listenerMiddleware/exceptions"
-
-interface data{
-  _id: {year: number, month: number},
-  bookings: []
-}
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { selectBookingsList, updateBookingsList } from "../slice/bookingListSlice"
 
 export const BookingList = ({toShow}:{toShow: String}) => {
-  const [bookings, setBookings] = useState<data[] | undefined>(undefined);
+  const bookings = useAppSelector(selectBookingsList)
+  const dispatch = useAppDispatch()
 
-  useFocusEffect(React.useCallback(() => {
-    updateBookings();
-  }, []))
+  useEffect(() => {
+    updateBookings()
+  },[])
 
   const updateBookings = async () => {
-    const _bookings = await get('bookings', 'groupdate');
-    setBookings(_bookings);
+    dispatch(updateBookingsList())
   }
 
   if(!bookings){
