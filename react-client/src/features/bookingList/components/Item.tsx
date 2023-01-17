@@ -5,7 +5,7 @@ import { get, update } from "../../../api/api"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { KebabBtn, Refresh } from "../../../components"
 import { selectColors } from "../../../theme"
-import { BookingInterface, CustomerInterface } from "../../../ts/interfaces"
+import { CustomerInterface } from "../../../ts/interfaces"
 import { fetchBookingsList, selectBookingById } from "../slice/bookingListSlice"
 import { ItemInfo } from "./ItemInfo"
 
