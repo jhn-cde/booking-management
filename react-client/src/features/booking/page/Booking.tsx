@@ -10,9 +10,12 @@ import { selectColors, styles } from '../../../theme';
 import { useSelector } from 'react-redux';
 import { SpinIcon } from '../../../components';
 import { TourState } from '../components/TourState';
+import { useAppDispatch } from '../../../app/hooks';
+import { fetchBookingsList } from '../../bookingList/slice/bookingListSlice';
 
 export const Booking = ({route, navigation}: RootStackScreenProps<'Booking'>) => {
   const colors = useSelector(selectColors);
+  const dispatch = useAppDispatch();
   const [booking, handleBookingChange, setBooking] = useForm(undefined)
   const [contact, handleContactChange, setContact] = useForm(undefined)
   const [tour, handleTourChange, setTour] = useForm(undefined)
@@ -47,6 +50,7 @@ export const Booking = ({route, navigation}: RootStackScreenProps<'Booking'>) =>
       const _booking = await update('bookings', booking._id, booking)
       const _contact = await update('customers', contact._id, contact)
       fillData()
+      dispatch(fetchBookingsList())
       setEditing(false)
     } catch (error) {
       console.log(error)
@@ -62,6 +66,7 @@ export const Booking = ({route, navigation}: RootStackScreenProps<'Booking'>) =>
         handleBookingChange({k: 'state', v: newState})
       }
 
+      dispatch(fetchBookingsList())
       setEditing(false)
     } catch (error) {
       console.log(error)
