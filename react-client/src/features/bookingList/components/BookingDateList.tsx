@@ -37,7 +37,7 @@ export const BookingDateList = ({date, bookings, state}: Props) => {
         keyExtractor={item => String(item._id)}
         renderItem={({item}) =>
           <View style={{marginBottom: 10}}> 
-            <Item {...item}/>
+            <Item _id={item._id}/>
           </View>
         }
       />

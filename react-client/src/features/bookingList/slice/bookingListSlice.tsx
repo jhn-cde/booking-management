@@ -52,10 +52,12 @@ export const bookingListSlice = createSlice({
 // Other code such as selectors can use the imported `RootState` type
 export const selectBookingsList = (state: RootState) => state.bookingsDateList.bookings
 export const selectBookingById = (state: RootState, bookingId: String) => {
-  const all_bookings = 
-  state.bookingsDateList.bookings.map(bookings => [...bookings.bookings])
-  console.log(all_bookings)
-  return 'Hii'
+  for (let row of state.bookingsDateList.bookings)
+    for (let booking of row.bookings)
+      if(booking._id === bookingId)
+        return booking
+
+  return undefined
 }
 
 export default bookingListSlice.reducer

@@ -3,23 +3,38 @@ import { useEffect, useState } from "react"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { get, update } from "../../../api/api"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { KebabBtn } from "../../../components"
+import { KebabBtn, Refresh } from "../../../components"
 import { selectColors } from "../../../theme"
 import { BookingInterface, CustomerInterface } from "../../../ts/interfaces"
-import { fetchBookingsList } from "../slice/bookingListSlice"
+import { fetchBookingsList, selectBookingById } from "../slice/bookingListSlice"
 import { ItemInfo } from "./ItemInfo"
 
-export const Item = ({_id, startdate, tours, contactId, ntravelers, state}: BookingInterface) => {
+export const Item = ({_id}: {_id: String}) => {
   const colors = useAppSelector(selectColors);
+  const booking = useAppSelector(state => selectBookingById(state, _id))
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [contact, setContact] = useState<CustomerInterface | undefined>(undefined);
   const [items, setItems] = useState<any[] | undefined>(undefined);
 
   useEffect(() => {
-    getContact();
-    fillItems();
-  }, [state, dispatch])
+    if(booking){
+      getContact();
+      
+      const edit = {onPress: () => navigation.navigate('Booking', {id: _id}), name: 'Editar'}
+      const del = {onPress: deleteBooking, name: 'Eliminar'}
+      const _states = [
+        {name: 'Marcar como pendiente', value: 'Pending', onPress: () => changeState('Pending')},
+        {name: 'Completar', value: 'Completed', onPress: () => changeState('Completed')},
+        {name: 'Cancelar', value: 'Cancelled', onPress: () => changeState('Cancelled')},
+      ]
+
+      const tmp = _states.filter(_state => _state.value!==booking.state);
+      let _items = tmp.map(_item => {return{onPress: _item.onPress, name: _item.name}});
+
+      setItems([edit, ..._items, del]);
+    }
+  }, [dispatch])
 
   const changeState = async (newState: String) => {
     try {
@@ -33,32 +48,23 @@ export const Item = ({_id, startdate, tours, contactId, ntravelers, state}: Book
   const deleteBooking = async () => {
     try {
       console.log('delete');
-      //dispatch(updateBookingsList());
     } catch (error) {
       console.log(error);
     }
   }
 
-  const fillItems = () => {
-    const edit = {onPress: () => navigation.navigate('Booking', {id: _id}), name: 'Editar'}
-    const del = {onPress: deleteBooking, name: 'Eliminar'}
-    const _states = [
-      {name: 'Marcar como pendiente', value: 'Pending', onPress: () => changeState('Pending')},
-      {name: 'Completar', value: 'Completed', onPress: () => changeState('Completed')},
-      {name: 'Cancelar', value: 'Cancelled', onPress: () => changeState('Cancelled')},
-    ]
-
-    const tmp = _states.filter(_state => _state.value!==state);
-    let _items = tmp.map(_item => {return{onPress: _item.onPress, name: _item.name}});
-
-    setItems([edit, ..._items, del]);
-  }
-
   const getContact = async () => {
-    const _contact = await get('customers', contactId);
-    setContact(_contact);
+    if(booking){
+      const _contact = await get('customers', booking.contactId);
+      setContact(_contact);
+    }
   }
-  
+
+  if(!booking){
+    return(
+      <Refresh text={'Reserva no encontrada'} refreshFun={()=>{}}/>
+    )
+  }
   return (
     <View 
       style={{alignItems: 'center', marginBottom: 10}}
@@ -70,11 +76,11 @@ export const Item = ({_id, startdate, tours, contactId, ntravelers, state}: Book
           activeOpacity={0.5}
         >
           <Text style={{...customStyles.title, marginBottom: 3, color: colors.secondary}}>
-            {contact&&contact.name} - {String(ntravelers)}p
+            {contact&&contact.name} - {String(booking.ntravelers)}p
           </Text>
           <ItemInfo
-            date={startdate}
-            tour_id={tours[0]._id} 
+            date={booking.startdate}
+            tour_id={booking.tours[0]._id} 
           />
         </TouchableOpacity>
         <View>
