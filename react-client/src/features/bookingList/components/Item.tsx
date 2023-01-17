@@ -1,17 +1,48 @@
 import { useNavigation } from "@react-navigation/native"
 import { useEffect, useState } from "react"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { get } from "../../../api/api"
+import { get, update } from "../../../api/api"
 import { useAppSelector } from "../../../app/hooks"
 import { KebabBtn } from "../../../components"
 import { selectColors } from "../../../theme"
 import { BookingInterface, CustomerInterface } from "../../../ts/interfaces"
 import { ItemInfo } from "./ItemInfo"
 
-export const Item = ({_id, startdate, tours, contactId, ntravelers}: BookingInterface) => {
+export const Item = ({_id, startdate, tours, contactId, ntravelers, state}: BookingInterface) => {
   const colors = useAppSelector(selectColors);
   const navigation = useNavigation()
   const [contact, setContact] = useState<CustomerInterface | undefined>(undefined)
+  const [items, setItems] = useState<any[] | undefined>(undefined)
+
+  useEffect(() => {
+    const edit = {onPress: () => navigation.navigate('Booking', {id: _id}), name: 'Editar'}
+    const del = {onPress: deleteBooking, name: 'Eliminar'}
+    const _states = [
+      {name: 'Marcar como pendiente', value: 'Pending', onPress: () => changeState('Pending')},
+      {name: 'Completar', value: 'Completed', onPress: () => changeState('Completed')},
+      {name: 'Cancelar', value: 'Cancelled', onPress: () => changeState('Cancelled')},
+    ]
+
+    const tmp = _states.filter(_state => _state.value!==state)
+    let _items = tmp.map(_item => {return{onPress: _item.onPress, name: _item.name}})
+
+    setItems([edit, ..._items, del])
+  }, [state])
+
+  const changeState = async (newState: String) => {
+    try {
+      const _booking = await update('bookings', _id, {state: newState})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const deleteBooking = async () => {
+    try {
+      console.log('delete')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(()=>{
     getContact()
@@ -41,11 +72,11 @@ export const Item = ({_id, startdate, tours, contactId, ntravelers}: BookingInte
           />
         </TouchableOpacity>
         <View>
-          <KebabBtn 
-            items={
-              [{onPress: ()=>navigation.navigate('Booking', {id: _id}), name: 'Editar'}]
-            }
-          />
+          {items&&
+            <KebabBtn 
+              items={items}
+            />
+          }
         </View>
       </View>
       <View style={customStyles.line}></View>
