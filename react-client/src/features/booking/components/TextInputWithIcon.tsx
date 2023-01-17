@@ -5,26 +5,28 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 interface Props{
   text: string,
   setText: any,
-  name: string
+  name: string,
+  propsStyles?: {}
 }
 
-export const TextInputWithIcon = ({name, text, setText} : Props) => {
-  //const [text, setText] = useState(_text);
+export const TextInputWithIcon = ({name, text, setText, propsStyles} : Props) => {
   const [isEditing, setIsEditing] = useState(false);
-
+  
   return (
     <View style={styles.container}>
+      {name!==''&&
       <Text>{name}: </Text>
+      }
       {isEditing ? (
         <TextInput
-          style={styles.textInput}
+          style={{...styles.textInput, ...propsStyles}}
           value={text}
           onChangeText={setText}
           selectTextOnFocus
           autoFocus
         />
       ) : (
-        <Text style={styles.text}>{text}</Text>
+        <Text style={{...styles.text, ...propsStyles}}>{text}</Text>
       )}
       <TouchableOpacity style={styles.icon_container} onPress={() => setIsEditing(!isEditing)} >
         <Icon name="pencil-circle-outline" style={styles.icon}/>
