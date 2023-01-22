@@ -1,13 +1,13 @@
 import { useNavigation } from "@react-navigation/native"
+import { format } from "date-fns"
 import { useEffect, useState } from "react"
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Share, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { get, update } from "../../../api/api"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { KebabBtn, Refresh } from "../../../components"
 import { selectColors } from "../../../theme"
-import { CustomerInterface } from "../../../ts/interfaces"
+import { CustomerInterface, TourInterface } from "../../../ts/interfaces"
 import { fetchBookingsList, selectBookingById } from "../slice/bookingListSlice"
-import { ItemInfo } from "./ItemInfo"
 
 export const Item = ({_id}: {_id: String}) => {
   const colors = useAppSelector(selectColors);
@@ -15,24 +15,26 @@ export const Item = ({_id}: {_id: String}) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [contact, setContact] = useState<CustomerInterface | undefined>(undefined);
+  const [tour, setTour] = useState<TourInterface | undefined>(undefined);
   const [items, setItems] = useState<any[] | undefined>(undefined);
 
   useEffect(() => {
     if(booking){
       getContact();
-      
-      const edit = {onPress: () => navigation.navigate('Booking', {id: _id}), name: 'Editar'}
-      const del = {onPress: deleteBooking, name: 'Eliminar'}
+      getTour();
       const _states = [
+        {name: 'Compartir', value: 'Share', onPress: shareBooking},
+        {name: 'Editar', value: 'Edit', onPress: () => navigation.navigate('Booking', {id: _id})},
         {name: 'Marcar como pendiente', value: 'Pending', onPress: () => changeState('Pending')},
         {name: 'Completar', value: 'Completed', onPress: () => changeState('Completed')},
         {name: 'Cancelar', value: 'Cancelled', onPress: () => changeState('Cancelled')},
+        {name: 'Eliminar', value: 'Delete', onPress: deleteBooking}
       ]
 
       const tmp = _states.filter(_state => _state.value!==booking.state);
       let _items = tmp.map(_item => {return{onPress: _item.onPress, name: _item.name}});
 
-      setItems([edit, ..._items, del]);
+      setItems([..._items]);
     }
   }, [dispatch])
 
@@ -52,6 +54,16 @@ export const Item = ({_id}: {_id: String}) => {
       console.log(error);
     }
   }
+  const shareBooking = () => {
+    const shareOptions = {
+      title: 'Compartir via',
+      message: msg
+    }
+
+    Share.share(shareOptions)
+    .then((res)=>console.log(res))
+    .catch((error)=>error && console.log(error));
+  }
 
   const getContact = async () => {
     if(booking){
@@ -60,10 +72,30 @@ export const Item = ({_id}: {_id: String}) => {
     }
   }
 
-  if(!booking){
+  const getTour = async () => {
+    if(booking){
+      try {
+        const _tour = await get('tours', booking.tours[0]._id)
+        setTour(_tour)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
+  let msg ='';
+  if(!booking || !contact || !tour){
+    console.log('eee')
     return(
-      <Refresh text={'Reserva no encontrada'} refreshFun={()=>{}}/>
+      <Refresh text={'Cargando...'} refreshFun={()=>{}}/>
     )
+  }
+  else{
+    msg = `Nombre de pasajero: *${contact.name}*`
+    msg+=`\nTour: *${tour.name}*`
+    msg+=`\nDireccion: ${booking.address?'*'+booking.address+'*':''}`
+    msg+=`\n*${booking.ntravelers}* pasajero${booking.ntravelers>1?'s':''}`
+    msg+=`${booking.extra?'\n*'+booking.extra+'*':''}`
   }
   return (
     <View 
@@ -76,12 +108,11 @@ export const Item = ({_id}: {_id: String}) => {
           activeOpacity={0.5}
         >
           <Text style={{...customStyles.title, marginBottom: 3, color: colors.secondary}}>
-            {contact&&contact.name} - {String(booking.ntravelers)}p
+            {contact.name} - {String(booking.ntravelers)}p
           </Text>
-          <ItemInfo
-            date={booking.startdate}
-            tour_id={booking.tours[0]._id} 
-          />
+          <Text style={{color: colors.text}}>
+            {`${format(new Date(booking.startdate), 'EEEE d')}`} - {tour.name}
+          </Text>
         </TouchableOpacity>
         <View>
           {items&&
