@@ -1,1 +1,1 @@
-const app = require('./bin/www')
+const app = require('./src/app')
