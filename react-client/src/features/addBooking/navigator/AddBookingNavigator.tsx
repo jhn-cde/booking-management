@@ -2,14 +2,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useAppSelector } from '../../../app/hooks';
 import { styles } from '../../../theme/theme';
 import { selectColors } from '../../../theme/themeSlice';
-import AddBooking from '../page/AddBooking';
-import ContactData from '../page/ContactData';
-import ToursData from '../page/ToursData';
+import {AddBooking, ContactData, ToursData} from '../page';
 import { AddBookingParamList } from './types';
 
 const Stack = createNativeStackNavigator<AddBookingParamList>()
 
-const AddBookingNavigator = () => {
+export const AddBookingNavigator = () => {
   const colors = useAppSelector(selectColors);
   
   return (
@@ -46,5 +44,3 @@ const AddBookingNavigator = () => {
     </Stack.Navigator>
   )
 }
-
-export default AddBookingNavigator

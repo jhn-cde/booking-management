@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import themeReducer from '../theme/themeSlice'
+import bookingsDateListReducer from '../features/bookingList/slice/bookingListSlice'
 
 const store = configureStore({
   reducer: {
-    theme: themeReducer
+    theme: themeReducer,
+    bookingsDateList: bookingsDateListReducer
   },
 })
 

@@ -1,9 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useAppSelector } from '../app/hooks'
-import AddBookingNavigator from '../features/addBooking/navigator/AddBookingNavigator'
-import Booking from '../features/booking/page/Booking'
-import { styles } from '../theme/theme'
-import { selectColors } from '../theme/themeSlice'
+import { AddBookingNavigator, Booking } from '../features'
+import { styles, selectColors } from '../theme'
 import Tabs from './Tabs'
 import { RootStackParamList } from './types'
 

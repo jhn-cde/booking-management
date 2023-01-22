@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Icon from '@expo/vector-icons/Ionicons';
-import CustomDateTimePicker from '../../../components/CustomDateTimePicker';
-import CustomInput from '../../../components/CustomInput';
-import FormItemContainer from '../../../components/FormItemContainer'
+import { CustomDateTimePicker, CustomInput, FormItemContainer } from '../../../components';
 import useForm from '../../../hooks/useForm';
-import { styles } from '../../../theme/theme';
-import { useSelector } from 'react-redux';
-import { selectColors } from '../../../theme/themeSlice';
+import { styles, selectColors } from '../../../theme';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { fetchTours } from '../api/ToursApi';
-import { AddBooking as addB } from '../api/BookingAPi';
+import { getall, post } from '../../../api/api';
+import { useNavigation } from '@react-navigation/native';
+import { useAppDispatch } from '../../../app/hooks';
+import { fetchBookingsList } from '../../bookingList/slice/bookingListSlice';
 
 export interface toursI{
   _id: String,
@@ -20,12 +19,14 @@ export interface toursI{
   userId: string,
 }
 
-function AddBooking() {
+export function AddBooking() {
   const colors = useSelector(selectColors);
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation();
 
   const [open, setOpen] = useState(false);
   const [tour, setTour] = useState(null);
-  const [tours, setTours] = useState<any>([])
+  const [tours, setTours] = useState<any>([]);
 
   const [customer, handleChange] = useForm({
     name:'',
@@ -38,25 +39,37 @@ function AddBooking() {
   });
 
   useEffect(() => {
-    updateTours()
+    updateTours();
   }, [])
 
-  const updateTours = () => {
-    fetchTours(setTours)
+  const updateTours = async() => {
+    const _tours = await getall('tours');
+    const data = _tours.map((_tour: any) => {return {label: _tour.name, value: _tour._id}});
+    setTours(data);
   }
 
   const onSubmit = async () => {
-    const bookingInfo = {
-      contact: {name: customer.name, phone: customer.phone},
-      address: customer.direction,
-      state: 'Pending',
-      startdate: customer.startdate,
-      extra: customer.extra,
-      ntravelers: customer.ntravelers,
-      tours:[{name: '', _id: tour}]
+    try {
+      const _contact = await post('customers', customer);
+      
+      const bookingPost = {
+        address: customer.direction,
+        contactId: _contact._id,
+        state: 'Pending',
+        startdate: customer.startdate,
+        extra: customer.extra,
+        ntravelers: customer.ntravelers,
+        tours:[{_id: tour}]
+      }
+      const _booking = await post('bookings', bookingPost);
+      console.log(`booking_ID: ${_booking._id}`);
+
+      dispatch(fetchBookingsList());
+
+      navigation.navigate('Tabs');
+    } catch (error) {
+      console.log('error onSubmit', error);
     }
-    
-    const b_added = await addB(bookingInfo)
   }
 
   return (
@@ -261,5 +274,3 @@ function AddBooking() {
     </>
   )
 }
-
-export default AddBooking

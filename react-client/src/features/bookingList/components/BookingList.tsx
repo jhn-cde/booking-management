@@ -1,50 +1,22 @@
-import React, { useEffect, useState } from "react"
-import { View } from "react-native"
-import BookingDateList from "./BookingDateList"
-import Refresh from "../../../components/Refresh"
-import { fetchBookings } from "../api/BookingsApi"
-import { useFocusEffect, useNavigation } from "@react-navigation/native"
+import React from "react"
+import { FlatList } from "react-native"
+import { BookingDateList } from "./BookingDateList"
+import { useAppSelector } from "../../../app/hooks"
+import { selectBookingsList } from "../slice/bookingListSlice"
 
-interface data{
-  _id: {year: number, month: number},
-  bookings: []
-}
-
-const BookingList = ({toShow}:{toShow: String}) => {
-  const [bookings, setBookings] = useState<data[] | undefined>(undefined);
-  
-  const navigation = useNavigation()
-
-  useFocusEffect(React.useCallback(() => {
-    updateBookings()
-  }, []))
-
-  const updateBookings = () => {
-    fetchBookings(setBookings)
-  }
-
-  const navigateTo = (_id: String) =>{
-    navigation.navigate('Booking', {id: _id})
-  }
-
-  if(!bookings){
-    return (<Refresh refreshFun={updateBookings}/>)
-  }
+export const BookingList = ({toShow}:{toShow: String}) => {
+  const bookings = useAppSelector(selectBookingsList)
 
   return (
-    <View>
-      {bookings.map((list, index) => 
+    <FlatList
+      data={bookings}
+      keyExtractor={item => String(item._id.month)+String(item._id.year)}
+      renderItem={({item}) => 
         <BookingDateList 
-          key={index} 
-          date={list._id} 
-          bookings={list.bookings}
+          date={item._id} 
+          bookings={item.bookings}
           state={toShow}
-          navigateTo={navigateTo}
-        />
-      )}
-    </View>
-      
+        />}
+    />  
   )
 }
-
-export default BookingList

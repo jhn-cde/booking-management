@@ -1,11 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 interface Props {
   tour: String
 }
 
-const SmallBtn = ({tour} : Props) => {
+export const SmallBtn = ({tour} : Props) => {
   return (
     <View
       style={styles.container}
@@ -25,5 +25,3 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline'
   }
 })
-
-export default SmallBtn

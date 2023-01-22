@@ -1,11 +1,9 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import BookingList from "../features/bookingList/components/BookingList";
 import Icon from '@expo/vector-icons/Ionicons';
-import Record from "../features/record/page/Record";
 import { BottomTabParamList } from "./types";
 import { useAppSelector } from "../app/hooks";
-import { selectColors } from "../theme/themeSlice";
-import Bookings from "../features/bookingList/page/Bookings";
+import { selectColors } from "../theme";
+import { Bookings, Record} from "../features";
 
 const Tab = createMaterialBottomTabNavigator<BottomTabParamList>();
 const Tabs = () => {

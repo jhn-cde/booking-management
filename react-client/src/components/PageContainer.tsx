@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useSelector } from 'react-redux';
-import { selectColors } from '../theme/themeSlice';
+import { selectColors } from '../theme';
 
-const PageContainer = ({children}:{children: React.ReactNode}) => {
+export const PageContainer = ({children}:{children: React.ReactNode}) => {
   const colors = useSelector(selectColors);
 
   return (
@@ -13,10 +13,9 @@ const PageContainer = ({children}:{children: React.ReactNode}) => {
   )
 }
 
-const customStyles = StyleSheet.create({
+export const customStyles = StyleSheet.create({
   container:{
     flex: 1,
     paddingHorizontal: 15,
   }
 })
-export default PageContainer

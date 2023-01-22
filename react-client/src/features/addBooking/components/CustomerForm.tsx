@@ -2,14 +2,11 @@ import React, { useState } from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import Icon from '@expo/vector-icons/Ionicons';
 import { useSelector } from 'react-redux'
-import CustomInput from '../../../components/CustomInput'
-import FormItemContainer from '../../../components/FormItemContainer'
+import { CustomInput, FormItemContainer, CustomDateTimePicker} from '../../../components/'
 import useForm from '../../../hooks/useForm'
-import { styles } from '../../../theme/theme'
-import { selectColors } from '../../../theme/themeSlice'
+import { styles, selectColors } from '../../../theme'
 import data from '../../../assets/countries.json'
-import { CustomerInterface } from '../../../ts/interfaces/customer.interface'
-import CustomDateTimePicker from '../../../components/CustomDateTimePicker';
+import { CustomerInterface } from '../../../ts/interfaces'
 import DropDownPicker from 'react-native-dropdown-picker';
 
 interface Props{
@@ -17,7 +14,7 @@ interface Props{
   simple?: boolean
 };
 
-const CustomerForm = ({onSubmit, simple=false}: Props) => {
+export const CustomerForm = ({onSubmit, simple=false}: Props) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState(data.countries.map(option => {return {label: option, value: option}}))
@@ -179,5 +176,3 @@ const CustomerForm = ({onSubmit, simple=false}: Props) => {
     </>
   )
 }
-
-export default CustomerForm

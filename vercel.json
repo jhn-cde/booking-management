@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "./express-server/bin/www",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "./express-server/bin/www"
+    }
+  ]
+}
