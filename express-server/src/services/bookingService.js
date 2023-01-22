@@ -23,7 +23,10 @@ class BookingService extends Service{
                 ntravelers: "$ntravelers",
                 contactId: "$contactId",
                 state: "$state",
-                tours: "$tours"
+                tours: "$tours",
+                address: "$address",
+                extra: "$extra",
+                price: "$price"
               } 
             }
           }
