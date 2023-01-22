@@ -25,20 +25,30 @@ var app = express();
 app.use(cors({origin: whiteList}))
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(logger('dev'));
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: false }));
+//app.use(cookieParser());
+//app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', indexRouter);
+
+//body parser
+const bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:'true'}))
+
+//app.use('/api', indexRouter);
 app.use('/api/bookings', bookingsRouter);
 app.use('/api/customers', customersRouter);
 app.use('/api/tours', toursRouter);
 app.use('/api/users', usersRouter);
+
+app.get('/api', (req, res) => {
+  res.send('Booking management api')
+})
 
 app.get('/', (req, res) => {
   res.send('Booking management home page')
