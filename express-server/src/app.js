@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv').config()
+const port = 5000
 
 const cors = require('cors')
 const whiteList = ['*']
@@ -38,6 +39,10 @@ app.use('/api/bookings', bookingsRouter);
 app.use('/api/customers', customersRouter);
 app.use('/api/tours', toursRouter);
 app.use('/api/users', usersRouter);
+
+app.get('/', (req, res) => {
+  res.send('Booking management home page')
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
