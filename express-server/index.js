@@ -41,10 +41,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:'true'}))
 
 //app.use('/api', indexRouter);
-app.use('/api/bookings', bookingsRouter);
-app.use('/api/customers', customersRouter);
-app.use('/api/tours', toursRouter);
-app.use('/api/users', usersRouter);
+app.use('/bookings', bookingsRouter);
+app.use('/customers', customersRouter);
+app.use('/tours', toursRouter);
+app.use('/users', usersRouter);
 
 app.get('/api', (req, res) => {
   res.send('Booking management api')
