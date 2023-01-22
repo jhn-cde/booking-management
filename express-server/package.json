@@ -1,11 +1,17 @@
 {
   "name": "booking-management-server",
   "version": "0.0.0",
-  "private": true,
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "devstart": "nodemon index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhn-cde/booking-management.git"
+  },
+  "author": "johan",
+  "license": "ISC",
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
