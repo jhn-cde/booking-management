@@ -60,7 +60,12 @@ export const Item = ({_id}: {_id: String}) => {
     if(msg){
       const shareOptions = {
         title: 'Compartir via',
-        message: `${msg.name}`+`${msg.tour}`+`${msg.dir}`+`${msg.ntra}`+`${msg.extra}`
+        message: `_*Peru Jungle Trips*_`+
+          `${msg.name}`+
+          `${msg.tour}`+
+          `${msg.dir}`+
+          `${msg.ntra}`+
+          `${msg.extra}`
       }
   
       Share.share(shareOptions)
@@ -79,7 +84,7 @@ export const Item = ({_id}: {_id: String}) => {
         setTour(_tour)
 
         return {
-          name: `Nombre de pasajero: *${_contact.name}*`,
+          name: `\nNombre de pasajero: *${_contact.name}*`,
           tour: `\nTour: *${_tour.name}*`,
           dir: `\nDireccion: ${booking.address?'*'+booking.address+'*':''}`,
           ntra: `\n*${booking.ntravelers}* pasajero${booking.ntravelers>1?'s':''}`,
