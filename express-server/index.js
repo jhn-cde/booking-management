@@ -50,9 +50,10 @@ app.get('/api', (req, res) => {
   res.send('Booking management api')
 })
 
-app.get('/', (req, res) => {
-  res.send('Booking management home page')
-})
+app.use('/', bookingsRouter);
+//app.get('/', (req, res) => {
+//  res.send('Booking management home page')
+//})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
