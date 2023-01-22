@@ -19,19 +19,19 @@ export const Item = ({_id}: {_id: String}) => {
   const [items, setItems] = useState<any[] | undefined>(undefined);
 
   useEffect(() => {
-    if(booking){
-      getContact();
-      getTour();
-      const _states = [
-        {name: 'Compartir', value: 'Share', onPress: shareBooking},
-        {name: 'Editar', value: 'Edit', onPress: () => navigation.navigate('Booking', {id: _id})},
-        {name: 'Marcar como pendiente', value: 'Pending', onPress: () => changeState('Pending')},
-        {name: 'Completar', value: 'Completed', onPress: () => changeState('Completed')},
-        {name: 'Cancelar', value: 'Cancelled', onPress: () => changeState('Cancelled')},
-        {name: 'Eliminar', value: 'Delete', onPress: deleteBooking}
-      ]
+    const _states = [
+      {name: 'Compartir', value: 'Share', onPress: shareBooking},
+      {name: 'Editar', value: 'Edit', onPress: () => navigation.navigate('Booking', {id: _id})},
+      {name: 'Marcar como pendiente', value: 'Pending', onPress: () => changeState('Pending')},
+      {name: 'Completar', value: 'Completed', onPress: () => changeState('Completed')},
+      {name: 'Cancelar', value: 'Cancelled', onPress: () => changeState('Cancelled')},
+      {name: 'Eliminar', value: 'Delete', onPress: deleteBooking}
+    ]
 
-      const tmp = _states.filter(_state => _state.value!==booking.state);
+    if(!tour || !contact){
+      getData();
+
+      const tmp = _states.filter(_state => _state.value!==booking?.state);
       let _items = tmp.map(_item => {return{onPress: _item.onPress, name: _item.name}});
 
       setItems([..._items]);
@@ -54,49 +54,49 @@ export const Item = ({_id}: {_id: String}) => {
       console.log(error);
     }
   }
-  const shareBooking = () => {
-    const shareOptions = {
-      title: 'Compartir via',
-      message: msg
-    }
-
-    Share.share(shareOptions)
-    .then((res)=>console.log(res))
-    .catch((error)=>error && console.log(error));
-  }
-
-  const getContact = async () => {
-    if(booking){
-      const _contact = await get('customers', booking.contactId);
-      setContact(_contact);
+  const shareBooking = async () => {
+    const msg = await getData()
+    
+    if(msg){
+      const shareOptions = {
+        title: 'Compartir via',
+        message: `${msg.name}`+`${msg.tour}`+`${msg.dir}`+`${msg.ntra}`+`${msg.extra}`
+      }
+  
+      Share.share(shareOptions)
+      .then((res)=>console.log(res))
+      .catch((error)=>error && console.log(error));
     }
   }
 
-  const getTour = async () => {
+  const getData = async () => {
     if(booking){
       try {
+        const _contact = await get('customers', booking.contactId);
+        setContact(_contact);
+
         const _tour = await get('tours', booking.tours[0]._id)
         setTour(_tour)
+
+        return {
+          name: `Nombre de pasajero: *${_contact.name}*`,
+          tour: `\nTour: *${_tour.name}*`,
+          dir: `\nDireccion: ${booking.address?'*'+booking.address+'*':''}`,
+          ntra: `\n*${booking.ntravelers}* pasajero${booking.ntravelers>1?'s':''}`,
+          extra: `${booking.extra?'\n*'+booking.extra+'*':''}`
+        }
       } catch (error) {
         console.log(error)
       }
     }
   }
 
-  let msg ='';
   if(!booking || !contact || !tour){
-    console.log('eee')
     return(
       <Refresh text={'Cargando...'} refreshFun={()=>{}}/>
     )
   }
-  else{
-    msg = `Nombre de pasajero: *${contact.name}*`
-    msg+=`\nTour: *${tour.name}*`
-    msg+=`\nDireccion: ${booking.address?'*'+booking.address+'*':''}`
-    msg+=`\n*${booking.ntravelers}* pasajero${booking.ntravelers>1?'s':''}`
-    msg+=`${booking.extra?'\n*'+booking.extra+'*':''}`
-  }
+
   return (
     <View 
       style={{alignItems: 'center', marginBottom: 10}}
